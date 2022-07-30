@@ -16,7 +16,7 @@ public class Matriz {
 			if (this.numeroUsados[i]==0 && i==temp){
 				this.numeroUsados[i]=temp;
 				break;
-			}else {
+			}else if(this.numeroUsados[i]==temp){
 				while(temp==this.numeroUsados[i]){
 					temp=rand.nextInt(1, 9);
 				}
@@ -35,7 +35,7 @@ public class Matriz {
 		
 		int temp;
 		
-		for(int i=0;i<8;i++) {
+		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
 				temp = rand.nextInt(1,9);
 					temp = check(temp);

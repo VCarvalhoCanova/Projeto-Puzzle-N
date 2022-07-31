@@ -11,7 +11,7 @@ public class Matriz {
 	
 	
 	public int check(int temp, int [] numerosUsados) {
-		for(int i=0;i<=8;i++) {
+		for(int i=0;i<=7;i++) {
 			if (numerosUsados[i]==temp){
 				numerosUsados[i]=0;
 				return temp;
@@ -28,21 +28,25 @@ public class Matriz {
 	public void criaTabuleiro() {
 		
 		int temp;
-		int [] numerosUsados = {1,2,3,4,5,6,7,8,9};
+		int [] numerosUsados = {1,2,3,4,5,6,7,8};
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
-				temp = rand.nextInt(1,10);
+				if(i==2 && j==2) {
+					this.tabuleiro[i][j]=0;
+					System.out.print(this.tabuleiro[i][j]);
+					break;
+				}
+				temp = rand.nextInt(1,9);
 					temp = check(temp,numerosUsados);
 					
 					this.tabuleiro[i][j]=temp;
 					
 				
-				if(i==2 && j==2) {
-				this.tabuleiro[i][j]=0;
-			}
+				
 				System.out.print(this.tabuleiro[i][j]);
 			
 			}
+			
 			System.out.println();
 		}
 		

@@ -5,26 +5,20 @@ import java.util.Random;
 public class Matriz {
 	
 	private int [] [] tabuleiro = new int [3] [3];
-	private int [] numeroUsados = new int [9];
 	private Random rand = new Random();
 	
 	
 	
 	
-	public int check(int temp) {
-		for(int i=0;i<8;i++) {
-			if (this.numeroUsados[i]==0 && i==temp){
-				this.numeroUsados[i]=temp;
-				break;
-			}else if(this.numeroUsados[i]==temp){
-				while(temp==this.numeroUsados[i]){
-					temp=rand.nextInt(1, 9);
-				}
-				this.numeroUsados[i]=temp;
-				temp=this.numeroUsados[i];
-			}
-			
+	public int check(int temp, int [] numerosUsados) {
+		for(int i=0;i<=8;i++) {
+			if (numerosUsados[i]==temp){
+				numerosUsados[i]=0;
+				return temp;
+			}	
 		}
+		temp=rand.nextInt(1,10);
+		temp = check(temp,numerosUsados);
 		return temp;
 	}
 	
@@ -34,18 +28,24 @@ public class Matriz {
 	public void criaTabuleiro() {
 		
 		int temp;
-		
+		int [] numerosUsados = {1,2,3,4,5,6,7,8,9};
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
-				temp = rand.nextInt(1,9);
-					temp = check(temp);
+				temp = rand.nextInt(1,10);
+					temp = check(temp,numerosUsados);
 					
-				if (this.tabuleiro[i][j]==0) {
 					this.tabuleiro[i][j]=temp;
-				}
-							
+					
+				
+				if(i==2 && j==2) {
+				this.tabuleiro[i][j]=0;
 			}
+				System.out.print(this.tabuleiro[i][j]);
+			
+			}
+			System.out.println();
 		}
+		
 	}
 	
 		

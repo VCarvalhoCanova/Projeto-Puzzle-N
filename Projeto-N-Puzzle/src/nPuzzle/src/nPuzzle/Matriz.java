@@ -7,9 +7,9 @@ public class Matriz {
 	
 	
 	private int [] [] tabuleiro = new int [3] [3];
-	private int [] [] matrizResposta = new int [3] [3];
+	private int [] [] matrizResposta = new int [3] [3]; 
 	private Random rand = new Random();
-	
+
 	
 	
 	
@@ -53,7 +53,7 @@ public class Matriz {
 	}
 	
 	public void moverPeca(int [] pecasMovi,int x,int y) {
-		int pecaSelecionada,temp;
+		int pecaSelecionada;
 		for(int k=0;k<4;k++) {
 			if(pecasMovi[k]!=0) {
 				System.out.println(pecasMovi[k]);

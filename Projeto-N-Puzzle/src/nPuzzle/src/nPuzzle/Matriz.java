@@ -1,4 +1,4 @@
-package nPuzzle;
+package nPuzzle.src.nPuzzle;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,7 +25,7 @@ public class Matriz {
 		return temp;
 	}
 	
-	public void PosicaoDe0() {
+	public void posicaoDe0() {
 		int posicaoX,posicaoY;
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++){
@@ -111,10 +111,10 @@ public class Matriz {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Matriz m = new Matriz();	
-		m.criarTabuleiro();
-		for(int i=0;i<4;i++){
-			m.PosicaoDe0();	
-		}
+		//m.criarTabuleiro();
+		//for(int i=0;i<4;i++){
+			//m.posicaoDe0();	
+		//}
 		
 			
 		sc.close();

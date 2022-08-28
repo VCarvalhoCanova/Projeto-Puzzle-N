@@ -1,4 +1,4 @@
-package nPuzzle;
+package nPuzzle.src.nPuzzle;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -103,10 +103,10 @@ Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		MatrizChar m = new MatrizChar();	
-		m.criarTabuleiro();
-		for(int i=0;i<4;i++){
-			m.PosicaoDe0();	
-		}
+		//m.criarTabuleiro();
+		//for(int i=0;i<4;i++){
+			//m.PosicaoDe0();	
+		//}
 		
 			
 		sc.close();

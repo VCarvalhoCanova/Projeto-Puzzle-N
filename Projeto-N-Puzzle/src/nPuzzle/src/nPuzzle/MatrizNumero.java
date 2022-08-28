@@ -1,6 +1,6 @@
-package nPuzzle;
+package nPuzzle.src.nPuzzle;
 
-public class MatrizNumero {
+public class MatrizNumero extends Matriz {
 
 	public static void main(String[] args) {
 		

@@ -29,7 +29,7 @@ public class UsuarioInfo {
 	public void setAcao() {
 		
 		Scanner sc = new Scanner(System.in);
-		this.acao = sc.nextLine();
+		this.acao = sc.next();
 	}
 	
 }

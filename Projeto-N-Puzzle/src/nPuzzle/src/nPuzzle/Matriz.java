@@ -2,6 +2,8 @@ package nPuzzle.src.nPuzzle;
 import java.util.Random;
 import java.util.Scanner;
 
+import nPuzzle.src.nPuzzleUsuario.Recursos;
+
 public class Matriz {
 	Scanner sc = new Scanner(System.in);
 	
@@ -10,7 +12,15 @@ public class Matriz {
 	private int [] [] matrizResposta = new int [3] [3]; 
 	private Random rand = new Random();
 
-	
+	public void destacarPeca() {
+		for(int i=0;i<3;i++) {
+			for(int j=0;j<3;j++){
+				if(this.tabuleiro[i][j] == (i*3+j+1)) {
+					this.tabuleiro[i][j] = this.tabuleiro[i][j] + 10 ;
+				}	
+			}
+		}	
+	}
 	
 	
 	public int check(int temp, int [] numerosUsados) {
@@ -76,7 +86,7 @@ public class Matriz {
 		
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
-				System.out.print(this.tabuleiro[i][j]);
+				System.out.print(this.tabuleiro[i][j] + " ");
 			}
 			System.out.println();
 		}
@@ -98,11 +108,12 @@ public class Matriz {
 				temp = rand.nextInt(1,9);
 				temp = check(temp,numerosUsados);
 				this.tabuleiro[i][j]=temp;
-				System.out.print(this.tabuleiro[i][j]);
+				destacarPeca();
+				
 			
 			}
 			
-			System.out.println();
+			
 		}
 		
 	}
@@ -110,8 +121,10 @@ public class Matriz {
 		
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		Matriz m = new Matriz();	
-		//m.criarTabuleiro();
+		Matriz m = new Matriz();
+		
+		m.criarTabuleiro();
+		
 		//for(int i=0;i<4;i++){
 			//m.posicaoDe0();	
 		//}

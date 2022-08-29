@@ -1,6 +1,6 @@
-package nPuzzle.src.nPuzzleUsuario;
+package nPuzzleUsuario;
 import nPuzzle.*;
-import nPuzzle.src.nPuzzle.Matriz;
+import nPuzzle.Matriz;
 import java.util.Random;
 
 public class JogoStart {

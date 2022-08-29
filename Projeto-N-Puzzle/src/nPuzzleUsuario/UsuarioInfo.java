@@ -1,4 +1,4 @@
-package nPuzzle.src.nPuzzleUsuario;
+package nPuzzleUsuario;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,6 +30,7 @@ public class UsuarioInfo {
 		
 		Scanner sc = new Scanner(System.in);
 		this.acao = sc.next();
+		sc.close();
 	}
 	
 }

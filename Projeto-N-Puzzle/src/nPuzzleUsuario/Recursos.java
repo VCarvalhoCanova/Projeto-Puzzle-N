@@ -1,4 +1,4 @@
-package nPuzzle.src.nPuzzleUsuario;
+package nPuzzleUsuario;
 
 public class Recursos {
 	

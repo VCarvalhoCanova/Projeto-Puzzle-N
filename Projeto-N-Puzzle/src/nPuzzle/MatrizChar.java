@@ -1,41 +1,23 @@
-package nPuzzle.src.nPuzzle;
+package nPuzzle;
+
 import java.util.Random;
 import java.util.Scanner;
 
-import nPuzzle.src.nPuzzleUsuario.Recursos;
-
-public class Matriz {
-	Scanner sc = new Scanner(System.in);
+public class MatrizChar extends Matriz{
+Scanner sc = new Scanner(System.in);
 	
 	
-	private int [] [] tabuleiro = new int [3] [3];
-	private int [] [] matrizResposta = new int [3] [3]; 
+	private char [] [] tabuleiro = new char [3] [3];
+	private int [] [] matrizResposta = new int [3] [3];
 	private Random rand = new Random();
-
-	public void destacarPeca() {
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<3;j++){
-				if(this.tabuleiro[i][j] == (i*3+j+1)) {
-					this.tabuleiro[i][j] = this.tabuleiro[i][j] + 10 ;
-				}	
-			}
-		}	
-	}
 	
 	
-	public int check(int temp, int [] numerosUsados) {
-		for(int i=0;i<=7;i++) {
-			if (numerosUsados[i]==temp){
-				numerosUsados[i]=0;
-				return temp;
-			}	
-		}
-		temp=rand.nextInt(1,10);
-		temp = check(temp,numerosUsados);
-		return temp;
-	}
 	
-	public void posicaoDe0() {
+	
+		
+	
+	
+	public void PosicaoDe0() {
 		int posicaoX,posicaoY;
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++){
@@ -49,7 +31,7 @@ public class Matriz {
 	}
 	
 	public void pecaMovimentaveis(int x,int y){
-		int [] pecasMovi = new int [4];
+		char [] pecasMovi = new char [4];
 		if(x-1>-1) {
 			pecasMovi[0]=this.tabuleiro[y][x-1];
 		}if(x+1<3) {
@@ -62,13 +44,13 @@ public class Matriz {
 		moverPeca(pecasMovi,x,y);
 	}
 	
-	public void moverPeca(int [] pecasMovi,int x,int y) {
-		int pecaSelecionada;
+	public void moverPeca(char [] pecasMovi,int x,int y) {
+		char pecaSelecionada;
 		for(int k=0;k<4;k++) {
 			if(pecasMovi[k]!=0) {
 				System.out.println(pecasMovi[k]);
 			}	
-		}pecaSelecionada= sc.nextInt();
+		}pecaSelecionada= sc.next().charAt(0);
 		
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
@@ -86,7 +68,7 @@ public class Matriz {
 		
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
-				System.out.print(this.tabuleiro[i][j] + " ");
+				System.out.print(this.tabuleiro[i][j]);
 			}
 			System.out.println();
 		}
@@ -107,13 +89,12 @@ public class Matriz {
 				}
 				temp = rand.nextInt(1,9);
 				temp = check(temp,numerosUsados);
-				this.tabuleiro[i][j]=temp;
-				destacarPeca();
-				
+				this.tabuleiro[i][j]=(char) (temp+64);
+				System.out.print((char)this.tabuleiro[i][j]);
 			
 			}
 			
-			
+			System.out.println();
 		}
 		
 	}
@@ -121,16 +102,13 @@ public class Matriz {
 		
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		Matriz m = new Matriz();
-		
-		m.criarTabuleiro();
-		
+		MatrizChar m = new MatrizChar();	
+		//m.criarTabuleiro();
 		//for(int i=0;i<4;i++){
-			//m.posicaoDe0();	
+			//m.PosicaoDe0();	
 		//}
 		
 			
 		sc.close();
 	}
-	
-}
+} 

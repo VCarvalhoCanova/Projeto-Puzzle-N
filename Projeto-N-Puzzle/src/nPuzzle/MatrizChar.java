@@ -7,13 +7,16 @@ public class MatrizChar extends Matriz{
 Scanner sc = new Scanner(System.in);
 	
 	
-	private char [] [] tabuleiro = new char [3] [3];
-	private int [] [] matrizResposta = new int [3] [3];
+	private char [] [] tabuleiro;
+	private char [] [] matrizResposta;
 	private Random rand = new Random();
 	
 	
 	
-	
+	public MatrizChar() {
+		this.tabuleiro = new char[3][3];
+		this.matrizResposta = new char [3][3];
+	}
 		
 	
 	
@@ -80,7 +83,7 @@ Scanner sc = new Scanner(System.in);
 		int [] numerosUsados = {1,2,3,4,5,6,7,8};
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
-				this.matrizResposta[i][j]=cont+1;
+				matrizResposta[i][j]=(char)((cont+1)+64);
 				if(i==2 && j==2) {
 					this.matrizResposta[i][j]=0;
 					this.tabuleiro[i][j]=0;

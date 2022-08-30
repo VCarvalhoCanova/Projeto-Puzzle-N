@@ -102,11 +102,11 @@ Scanner sc = new Scanner(System.in);
 		
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		MatrizChar m = new MatrizChar();	
-		//m.criarTabuleiro();
-		//for(int i=0;i<4;i++){
-			//m.PosicaoDe0();	
-		//}
+		MatrizChar mC = new MatrizChar();	
+		mC.criarTabuleiro();
+		for(int i=0;i<4;i++){
+			mC.PosicaoDe0();	
+		}
 		
 			
 		sc.close();

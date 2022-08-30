@@ -1,23 +1,42 @@
 package nPuzzleUsuario;
 import nPuzzle.*;
+import nPuzzle.MatrizChar;
 import nPuzzle.Matriz;
 import java.util.Random;
 
 public class JogoStart {
-	
+	private char modo;
 	public void layout(){
 		UsuarioInfo user = new UsuarioInfo();
 		Matriz m = new Matriz();
+		MatrizChar mC= new MatrizChar();
 		Recursos r = new Recursos();
 		
-		m.criarTabuleiro();
+		
 		user.usuarioNome();
+		modo=user.modoDeJogo();
 		r.limparTela();
+		
+		if(modo=='N') {
+			m.criarTabuleiro();
+			r.limparTela();
 		while(true){
 			m.exibirTabuleiro();
 			r.textoAcao();
-			user.setAcao();
+			m.posicaoDe0();
+			m.pecaMovimentaveis();
+			m.moverPeca();
 			r.limparTela();
+		}
+		}else if(modo=='C') {
+			mC.criarTabuleiro();
+			r.limparTela();
+			while(true){
+				mC.exibirTabuleiro();
+				r.textoAcao();
+				mC.posicaoDe0();
+				r.limparTela();
+			}
 		}
 	}
 	

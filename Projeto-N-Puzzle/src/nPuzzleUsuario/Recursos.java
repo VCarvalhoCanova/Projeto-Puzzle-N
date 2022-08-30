@@ -3,8 +3,10 @@ package nPuzzleUsuario;
 public class Recursos {
 	
 	public void textoAcao() {
-		System.out.print("Digite sua ação: ");
+		System.out.println("Digite sua ação: ");
 	}
+	
+	
 	
 	public void ajuda() {
 		int [] [] tabuleiroCorreto = new int [3] [3];

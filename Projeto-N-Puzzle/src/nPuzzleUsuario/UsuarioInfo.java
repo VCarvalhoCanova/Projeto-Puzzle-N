@@ -9,13 +9,19 @@ public class UsuarioInfo {
 	private String nome;
 	private String acao;
 	private ArrayList <String> jogadas = new ArrayList<> ();
-	
+	Scanner sc = new Scanner(System.in);
 	public void usuarioNome() {
-		Scanner sc = new Scanner(System.in);
+		
 		
 		System.out.print("Digite seu Nome: ");
 		this.nome = sc.nextLine();
 		
+		
+	}
+	public  char modoDeJogo() {
+		System.out.println("Qual o modo de jogo desejado ");
+		char modo = sc.next().charAt(0);
+		return modo;
 	}
 	
 	public String getNome() {
@@ -27,10 +33,9 @@ public class UsuarioInfo {
 	}
 
 	public void setAcao() {
-		
-		Scanner sc = new Scanner(System.in);
 		this.acao = sc.next();
-		sc.close();
+		
 	}
+	
 	
 }

@@ -2,21 +2,22 @@ package nPuzzle;
 import java.util.Random;
 import java.util.Scanner;
 
-import nPuzzle.src.nPuzzleUsuario.Recursos;
 
 public class Matriz {
 	Scanner sc = new Scanner(System.in);
 	
 	
-	private int [] [] tabuleiro = new int [3] [3];
-	private int [] [] matrizResposta = new int [3] [3]; 
+	protected int [] [] tabuleiro = new int [3] [3];
+	protected int [] [] matrizResposta = new int [3] [3]; 
+	protected int [] pecasMovi = new int [4];
+	protected int x,y;
 	private Random rand = new Random();
 
 	public void destacarPeca() {
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++){
 				if(this.tabuleiro[i][j] == (i*3+j+1)) {
-					this.tabuleiro[i][j] = this.tabuleiro[i][j] + 10 ;
+					this.tabuleiro[i][j] = this.tabuleiro[i][j];
 				}	
 			}
 		}	
@@ -36,20 +37,21 @@ public class Matriz {
 	}
 	
 	public void posicaoDe0() {
-		int posicaoX,posicaoY;
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++){
 				if(this.tabuleiro[i][j]==0) {
-					posicaoX=j;
-					posicaoY=i;
-					pecaMovimentaveis(posicaoX,posicaoY);
+					x=j;
+					y=i;
+					
 				}
 			}
 		}
 	}
 	
-	public void pecaMovimentaveis(int x,int y){
-		int [] pecasMovi = new int [4];
+	public void pecaMovimentaveis(){
+		for(int k=0;k<4;k++) {
+			pecasMovi[k]=0;
+		}
 		if(x-1>-1) {
 			pecasMovi[0]=this.tabuleiro[y][x-1];
 		}if(x+1<3) {
@@ -59,16 +61,23 @@ public class Matriz {
 		}if(y+1<3) {
 			pecasMovi[3]=this.tabuleiro[y+1][x];
 		}
-		moverPeca(pecasMovi,x,y);
 	}
 	
-	public void moverPeca(int [] pecasMovi,int x,int y) {
-		int pecaSelecionada;
+	public void moverPeca() {
+		int pecaSelecionada=0;
 		for(int k=0;k<4;k++) {
 			if(pecasMovi[k]!=0) {
 				System.out.println(pecasMovi[k]);
 			}	
-		}pecaSelecionada= sc.nextInt();
+		}
+		while(true) {
+			System.out.println("Insira um dos numeros mostrados");
+			pecaSelecionada= sc.nextInt();
+			if((pecaSelecionada==pecasMovi[0])||(pecaSelecionada==pecasMovi[1])||(pecaSelecionada==pecasMovi[2])||(pecaSelecionada==pecasMovi[3])) {
+				break;
+			}
+		}
+		
 		
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
@@ -98,11 +107,10 @@ public class Matriz {
 		int [] numerosUsados = {1,2,3,4,5,6,7,8};
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
-				this.matrizResposta[i][j]=cont+1;
+				matrizResposta[i][j]=cont+1;
 				if(i==2 && j==2) {
-					this.matrizResposta[i][j]=0;
-					this.tabuleiro[i][j]=0;
-					System.out.print(this.tabuleiro[i][j]);
+					matrizResposta[i][j]=0;
+					tabuleiro[i][j]=0;
 					break;
 				}
 				temp = rand.nextInt(1,9);
@@ -122,14 +130,9 @@ public class Matriz {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Matriz m = new Matriz();
-		
 		m.criarTabuleiro();
-		
-		//for(int i=0;i<4;i++){
-			//m.posicaoDe0();	
-		//}
-		
-			
+		m.posicaoDe0();
+		m.pecaMovimentaveis();
 		sc.close();
 	}
 	

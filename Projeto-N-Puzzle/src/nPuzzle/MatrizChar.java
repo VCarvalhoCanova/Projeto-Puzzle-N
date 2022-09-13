@@ -13,25 +13,12 @@ Scanner sc = new Scanner(System.in);
 	
 	
 	
-	public MatrizChar() {
+	public MatrizChar(int tamanhoTabuleiro) {
+		super(tamanhoTabuleiro);
 		this.tabuleiro = new char[3][3];
 		this.matrizResposta = new char [3][3];
 	}
 		
-	
-	
-	public void PosicaoDe0() {
-		int posicaoX,posicaoY;
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<3;j++){
-				if(this.tabuleiro[i][j]==0) {
-					posicaoX=j;
-					posicaoY=i;
-					pecaMovimentaveis(posicaoX,posicaoY);
-				}
-			}
-		}
-	}
 	
 	public void pecaMovimentaveis(int x,int y){
 		char [] pecasMovi = new char [4];
@@ -66,16 +53,6 @@ Scanner sc = new Scanner(System.in);
 		exibirTabuleiro();
 	}
 	
-    
-	public void exibirTabuleiro() {
-		
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<3;j++) {
-				System.out.print(this.tabuleiro[i][j]);
-			}
-			System.out.println();
-		}
-	}
 	
 	public void criarTabuleiro() {
 		int cont=0;
@@ -104,14 +81,6 @@ Scanner sc = new Scanner(System.in);
 	
 		
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		MatrizChar mC = new MatrizChar();	
-		mC.criarTabuleiro();
-		for(int i=0;i<4;i++){
-			mC.PosicaoDe0();	
-		}
 		
-			
-		sc.close();
 	}
 } 

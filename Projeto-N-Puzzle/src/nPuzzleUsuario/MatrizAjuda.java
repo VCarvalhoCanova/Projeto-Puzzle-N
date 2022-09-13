@@ -1,5 +1,6 @@
 package nPuzzleUsuario;
 import nPuzzle.Matriz;
+import nPuzzle.MatrizNumero;
 import nPuzzle.MatrizPath;
 
 import java.awt.image.BufferedImage;
@@ -11,15 +12,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class MatrizAjuda extends Matriz {
+public class MatrizAjuda extends MatrizNumero {
 	JFrame frame = new JFrame ();
 	MatrizPath mP = new MatrizPath();
 	private JLabel[][] labelResposta = new JLabel[3][3];
 	private BufferedImage [][] framesResposta = new BufferedImage [3][3];
-	Matriz m = new Matriz();
+	private MatrizNumero mN= new MatrizNumero(3);
 	
 	public MatrizAjuda() {
-		m.criarTabuleiro();
+		mN.criarTabuleiro();
 		int cont=0;
 		for(int i=0;i<3;i++) {
     		for(int j=0;j<3;j++) {

@@ -1,15 +1,16 @@
 package nPuzzleUsuario;
 import nPuzzle.*;
 import nPuzzle.MatrizChar;
-import nPuzzle.Matriz;
-import java.util.Random;
+import nPuzzleMaluco.*;
 
 public class JogoStart {
 	private char modo;
+	
 	public void layout(){
 		UsuarioInfo user = new UsuarioInfo();
-		Matriz m = new Matriz();
-		MatrizChar mC= new MatrizChar();
+		MatrizNumero mN = new MatrizNumero(3);
+		MatrizChar mC= new MatrizChar(3);
+		MatrizNPuzzleMalucoNumero mNPN = new MatrizNPuzzleMalucoNumero(3,5);
 		Recursos r = new Recursos();
 		
 		
@@ -18,14 +19,14 @@ public class JogoStart {
 		r.limparTela();
 		
 		if(modo=='N') {
-			m.criarTabuleiro();
+			mN.criarTabuleiro();
 			r.limparTela();
 		while(true){
-			m.exibirTabuleiro();
+			mN.exibirTabuleiro();
 			r.textoAcao();
-			m.posicaoDe0();
-			m.pecaMovimentaveis();
-			m.moverPeca();
+			mN.posicaoDe0();
+			mN.pecaMovimentaveis();
+			mN.moverPeca();
 			r.limparTela();
 		}
 		}else if(modo=='C') {
@@ -37,9 +38,19 @@ public class JogoStart {
 				mC.posicaoDe0();
 				r.limparTela();
 			}
+		}else if(modo=='M') {
+			mNPN.criarTabuleiro();
+			r.limparTela();
+		while(true){
+			mNPN.exibirTabuleiro();
+			r.textoAcao();
+			mNPN.posicaoDe0();
+			mNPN.pecaMovimentaveis();
+			mNPN.moverPeca();
+			r.limparTela();
+			}	
 		}
 	}
-	
 	public static void main(String[] args) {
 		
 		JogoStart p1 = new JogoStart();

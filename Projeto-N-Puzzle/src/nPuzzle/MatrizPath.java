@@ -14,20 +14,24 @@ import javax.imageio.*;
 
 public class MatrizPath implements ActionListener{
 	 
-	 private Matriz m = new Matriz();
-	 private int []imagensMovimentaveis;
 	 private int pecaSelecionada,x,y;
-	 private int [][] tabuleiro;
+	 private int []imagensMovimentaveis,pecasMovi;	
+	 private int [][] tabuleiro, matrizResposta;
 	 private BufferedImage[][] frames;
 	 private JLabel[][] label;
 	 private JButton[] button;
 	 private JButton buttonAjuda;
 	 private JFrame frame;
 	 
+	 
 	   
 	    
-	    public MatrizPath(BufferedImages[][] frames,) {
-	    		
+	    public MatrizPath(int tamanhoTabuleiro) {
+	    	this.tabuleiro=new int [tamanhoTabuleiro] [tamanhoTabuleiro];
+			this.matrizResposta= new int [tamanhoTabuleiro] [tamanhoTabuleiro];
+			this.pecasMovi= new int [4];
+			this.x=x;
+			this.y=y;
 	    	}
 	        
 	   
@@ -39,13 +43,10 @@ public class MatrizPath implements ActionListener{
 		}  
 	    
 	    public void criarLabels() {
-	    	m.criarTabuleiro();
-	    	m.posicaoDe0();
-	    	m.pecaMovimentaveis();
 	    	for(int i=0;i<3;i++) {
     		for(int j=0;j<3;j++) {
     				try {
-						frames [i] [j] = ImageIO.read(new File("C://Imagens//"+m.tabuleiro[i][j]+".jpg"));
+						frames [i] [j] = ImageIO.read(new File("C://Imagens//"++".jpg"));
 						label[i][j] = new JLabel(new ImageIcon(frames[i][j]));
 						label[i][j].setBounds((100*j), (120*i), 85, 100);
 						frame.getContentPane().add(label[i][j]);
@@ -58,9 +59,9 @@ public class MatrizPath implements ActionListener{
 	    
 	    public void criarButton() {
 	    	for(int k=0;k<4;k++) {
-	    		if(m.pecasMovi[k]!=0) {
-	    		imagensMovimentaveis[k] = m.pecasMovi[k];
-	    		button[k]= new JButton (""+m.pecasMovi[k]);
+	    		if(pecasMovi[k]!=0) {
+	    		imagensMovimentaveis[k] = pecasMovi[k];
+	    		button[k]= new JButton (""+pecasMovi[k]);
 	    		button[k].setBounds(300,125*k,200,100);
 		    	button[k].setFocusable(false);
 		        button[k].addActionListener(this);
@@ -84,7 +85,7 @@ public class MatrizPath implements ActionListener{
 	    
 	    
 	    public static void main(String[] args) {
-	    	MatrizPath mP = new MatrizPath();
+	    	MatrizPath mP = new MatrizPath(3);
 	    	mP.criarLabels();
 	    	
 	    	mP.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

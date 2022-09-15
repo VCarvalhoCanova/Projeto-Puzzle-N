@@ -10,12 +10,14 @@ public class MatrizNPuzzleMalucoNumero extends MatrizNPuzzleMaluco {
 	
 		public static void main(String[] args) {
 			MatrizNPuzzleMalucoNumero mNPM = new MatrizNPuzzleMalucoNumero(3,11);
-			mNPM.criaTabuleiro();
+			mNPM.criarTabuleiro();
+			while(true) {
 			mNPM.exibirTabuleiro();
 			mNPM.posicaoDe0();
 			mNPM.pecaMovimentaveis();
 			mNPM.moverPeca();
 			mNPM.chanceDeEmbaralhar();
 			mNPM.exibirTabuleiro();
+			}
 		}
 }

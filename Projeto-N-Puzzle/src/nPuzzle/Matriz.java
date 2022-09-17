@@ -4,13 +4,12 @@ import java.util.Scanner;
 import java.io.*;
 
 
-public abstract class Matriz {
+public abstract class Matriz implements Constantes {
 	Scanner sc = new Scanner(System.in);
 	
 	
 	private int [] [] tabuleiro;
 	private int [] [] matrizResposta;
-	private int [] pecasMovi;
 	private int x,y;
 	private Random rand = new Random();
 	
@@ -19,7 +18,6 @@ public abstract class Matriz {
 	public Matriz(int tamanhoTabuleiro ) {
 		this.tabuleiro=new int [tamanhoTabuleiro] [tamanhoTabuleiro];
 		this.matrizResposta= new int [tamanhoTabuleiro] [tamanhoTabuleiro];
-		this.pecasMovi= new int [4];
 	}
 	
 	public int check(int temp, int [] numerosUsados) {
@@ -61,7 +59,7 @@ public abstract class Matriz {
 		}
 	}
 	
-	public void moverPeca() {
+	public void moverPeca()throws NumeroInvalido {
 		int pecaSelecionada=0;
 		
 		for(int k=0;k<4;k++) {
@@ -70,16 +68,16 @@ public abstract class Matriz {
 			}	
 		}
 			System.out.println("Insira um dos numeros mostrados");
-		while(true) {
+		
+			try {
 			pecaSelecionada= sc.nextInt();	
+			}catch(Exception e){
+				throw new NumeroInvalido("Valor Invalido");
+			}
 			if(pecaSelecionada!=0&& pecaSelecionada == pecasMovi[0]|| pecaSelecionada == pecasMovi[1]||pecaSelecionada == pecasMovi[2]
 					||pecaSelecionada == pecasMovi[3]) {
-				break;
-			}
+				
 			
-		}
-			
-		
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
 				if(this.tabuleiro[i][j]==pecaSelecionada) {
@@ -88,9 +86,9 @@ public abstract class Matriz {
 				}
 			}
 		}
-		exibirTabuleiro();
+		
 	}
-	
+	}
     
 	public void exibirTabuleiro() {
 		

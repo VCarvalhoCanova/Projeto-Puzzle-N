@@ -1,6 +1,5 @@
 package nPuzzleUsuario;
 import nPuzzle.*;
-import nPuzzle.MatrizChar;
 import nPuzzleMaluco.*;
 
 public class JogoStart {
@@ -26,7 +25,12 @@ public class JogoStart {
 			r.textoAcao();
 			mN.posicaoDe0();
 			mN.pecaMovimentaveis();
-			mN.moverPeca();
+			try {
+				mN.moverPeca();
+			} catch (NumeroInvalido e) {
+				e.printStackTrace();
+			}
+			mN.exibirTabuleiro();
 			r.limparTela();
 		}
 		}else if(modo=='C') {

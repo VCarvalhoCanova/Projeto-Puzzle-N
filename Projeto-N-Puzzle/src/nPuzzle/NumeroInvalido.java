@@ -5,6 +5,7 @@ public class NumeroInvalido extends Exception {
 	
 		
 		public NumeroInvalido(String string) {
+			super(string);
 			this.string=string;
 		}
 }

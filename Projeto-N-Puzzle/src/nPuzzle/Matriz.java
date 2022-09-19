@@ -68,13 +68,16 @@ public abstract class Matriz implements Constantes {
 			}	
 		}
 			System.out.println("Insira um dos numeros mostrados");
-		
+		while(true) {
 			try {
 			pecaSelecionada= sc.nextInt();	
-			}catch(Exception e){
-				throw new NumeroInvalido("Valor Invalido");
+			break;
+			}catch (Exception e){
+				System.err.println("Por favor, insira um número ");
+			    sc.next();
 			}
-			if(pecaSelecionada!=0&& pecaSelecionada == pecasMovi[0]|| pecaSelecionada == pecasMovi[1]||pecaSelecionada == pecasMovi[2]
+		}
+			if(pecaSelecionada == pecasMovi[0]|| pecaSelecionada == pecasMovi[1]||pecaSelecionada == pecasMovi[2]
 					||pecaSelecionada == pecasMovi[3]) {
 				
 			

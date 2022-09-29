@@ -8,7 +8,9 @@ Scanner sc = new Scanner(System.in);
 	
 	
 	private char [] [] tabuleiro;
-	private char [] [] matrizResposta;
+	private char [] [] matrizResposta; 
+	private char pecaSelecionada;
+	private int x,y;
 	private Random rand = new Random();
 	
 	
@@ -19,28 +21,47 @@ Scanner sc = new Scanner(System.in);
 		this.matrizResposta = new char [3][3];
 	}
 		
-	
-	public void pecaMovimentaveis(int x,int y){
-		char [] pecasMovi = new char [4];
-		if(x-1>-1) {
-			pecasMovi[0]=this.tabuleiro[y][x-1];
-		}if(x+1<3) {
-			pecasMovi[1]=this.tabuleiro[y][x+1];
-		}if(y-1>-1) {
-			pecasMovi[2]=this.tabuleiro[y-1][x];
-		}if(y+1<3) {
-			pecasMovi[3]=this.tabuleiro[y+1][x];
+	public int check(int temp, int [] numerosUsados) {
+		for(int i=0;i<=7;i++) {
+			if (numerosUsados[i]==temp){
+				numerosUsados[i]=0;
+				return temp;
+			}	
 		}
-		moverPeca(pecasMovi,x,y);
+		temp=rand.nextInt(1,10);
+		temp = check(temp,numerosUsados);
+		return temp;
 	}
 	
-	public void moverPeca(char [] pecasMovi,int x,int y) {
-		char pecaSelecionada;
+	public void pecaMovimentaveis(){
 		for(int k=0;k<4;k++) {
-			if(pecasMovi[k]!=0) {
-				System.out.println(pecasMovi[k]);
+			pecasMoviChar[k]=0;
+		}
+		if(x-1>-1) {
+			pecasMoviChar[0]=this.tabuleiro[y][x-1];
+		}if(x+1<3) {
+			pecasMoviChar[1]=this.tabuleiro[y][x+1];
+		}if(y-1>-1) {
+			pecasMoviChar[2]=this.tabuleiro[y-1][x];
+		}if(y+1<3) {
+			pecasMoviChar[3]=this.tabuleiro[y+1][x];
+		}
+	}
+	
+	public void moverPeca() throws ValorInvalido {
+		
+		for(int k=0;k<4;k++) {
+			if(pecasMoviChar[k]!=0) {
+				System.out.println(pecasMoviChar[k]);
 			}	
-		}pecaSelecionada= sc.next().charAt(0);
+		}
+		try {
+			pecaSelecionada= sc.next().charAt(0);
+		}catch(Exception e) {
+			System.err.print("Por favor, insira um caractere");
+			sc.next();
+		}
+		
 		
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
@@ -50,7 +71,6 @@ Scanner sc = new Scanner(System.in);
 				}
 			}
 		}
-		exibirTabuleiro();
 	}
 	
 	
@@ -78,9 +98,42 @@ Scanner sc = new Scanner(System.in);
 		}
 		
 	}
+	public void exibirTabuleiro() {
+		
+		for(int i=0;i<3;i++) {
+			for(int j=0;j<3;j++) {
+				if(this.tabuleiro [i][j]==this.matrizResposta[i][j]) {
+					System.out.print(this.tabuleiro[i][j]+"=C ");
+				}else {
+					System.out.print(this.tabuleiro[i][j]+"=E ");
+				}
+				
+			}
+			
+				System.out.println();
+			
+			
+		}
+	}
+	public void posicaoDe0() {
+		for(int i=0;i<3;i++) {
+			for(int j=0;j<3;j++){
+				if(tabuleiro[i][j]==0) {
+					x=j;
+					y=i;
+				}
+			}
+		}
+	}
+	
 	
 		
-	public static void main(String[] args) {
-		
+
+
+	@Override
+	public int check() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 } 

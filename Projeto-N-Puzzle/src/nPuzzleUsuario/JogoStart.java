@@ -4,44 +4,28 @@ import nPuzzleMaluco.*;
 
 public class JogoStart {
 	private char modo;
+	private int dificuldade;
+	private UsuarioInfo user = new UsuarioInfo();
+	private MatrizNumero mN; 
+	private MatrizChar mC= new MatrizChar(3);
+	private MatrizNPuzzleMalucoNumero mNPN = new MatrizNPuzzleMalucoNumero(3,5);
+	private Recursos r = new Recursos();
+	
+	
 	
 	public void layout(){
-		UsuarioInfo user = new UsuarioInfo();
-		MatrizNumero mN = new MatrizNumero(3);
-		MatrizChar mC= new MatrizChar(3);
-		MatrizNPuzzleMalucoNumero mNPN = new MatrizNPuzzleMalucoNumero(3,5);
-		Recursos r = new Recursos();
-		
 		
 		user.usuarioNome();
 		modo=user.modoDeJogo();
-		r.limparTela();
+		dificuldade=user.dificuldadeDoJogo();
+		//r.limparTela();
 		
 		if(modo=='N') {
-			mN.criarTabuleiro();
-			r.limparTela();
-		while(true){
-			mN.exibirTabuleiro();
-			r.textoAcao();
-			mN.posicaoDe0();
-			mN.pecaMovimentaveis();
-			try {
-				mN.moverPeca();
-			} catch (NumeroInvalido e) {
-				e.printStackTrace();
-			}
-			mN.exibirTabuleiro();
-			r.limparTela();
-		}
+			layoutMatrizNumero();
+		
 		}else if(modo=='C') {
-			mC.criarTabuleiro();
-			r.limparTela();
-			while(true){
-				mC.exibirTabuleiro();
-				r.textoAcao();
-				mC.posicaoDe0();
-				r.limparTela();
-			}
+			layoutMatrizChar();
+			
 		}else if(modo=='M') {
 			mNPN.criarTabuleiro();
 			r.limparTela();
@@ -55,10 +39,49 @@ public class JogoStart {
 			}	
 		}
 	}
+	
+		public void layoutMatrizNumero(){
+			mN= new MatrizNumero(dificuldade);
+			mN.criarTabuleiro();
+			r.limparTela();
+		while(true){
+			mN.exibirTabuleiro();
+			r.textoAcao();
+			mN.posicaoDe0();
+			mN.pecaMovimentaveis();
+			try {
+				mN.moverPeca();
+			} catch (ValorInvalido e) {
+				e.printStackTrace();
+			}
+			mN.exibirTabuleiro();
+			r.limparTela();
+		}
+		
+}
+		public void layoutMatrizChar() {
+			mC.criarTabuleiro();
+			r.limparTela();
+			while(true){
+				mC.exibirTabuleiro();
+				r.textoAcao();
+				mC.posicaoDe0();
+				mC.pecaMovimentaveis();
+				try {
+					mC.moverPeca();
+				}catch (ValorInvalido e) {
+					e.printStackTrace();
+				}
+				mC.exibirTabuleiro();
+				r.limparTela();
+			}
+		}
+	
+	
+	
 	public static void main(String[] args) {
 		
 		JogoStart p1 = new JogoStart();
-		
 		p1.layout();
 		
 		

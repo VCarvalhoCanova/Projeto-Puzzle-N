@@ -23,7 +23,7 @@ public class MatrizPath implements ActionListener{
 	 private JButton buttonAjuda;
 	 private JFrame frame;
 	 
-	 
+	 	
 	   
 	    
 	    public MatrizPath(int tamanhoTabuleiro) {
@@ -38,15 +38,13 @@ public class MatrizPath implements ActionListener{
 	    
 	    public BufferedImage getFrames(int i,int j) {	
 	    	return frames[i][j];
-	    		
-
 		}  
 	    
 	    public void criarLabels() {
 	    	for(int i=0;i<3;i++) {
     		for(int j=0;j<3;j++) {
     				try {
-						frames [i] [j] = ImageIO.read(new File("C://Imagens//"++".jpg"));
+						frames [i] [j] = ImageIO.read(new File("C://Imagens//"+tabuleiro [i] [j]+".jpg"));
 						label[i][j] = new JLabel(new ImageIcon(frames[i][j]));
 						label[i][j].setBounds((100*j), (120*i), 85, 100);
 						frame.getContentPane().add(label[i][j]);
@@ -82,11 +80,14 @@ public class MatrizPath implements ActionListener{
 	    	}
 	    }
 
-	    
+	   // public void setTabuleior() {
+	    	//this.tabuleiro = tabuleio [][];
+	  //  }
 	    
 	    public static void main(String[] args) {
 	    	MatrizPath mP = new MatrizPath(3);
-	    	mP.criarLabels();
+	    	MatrizNumero mN = new MatrizNumero(3);
+	    	mN.criarTabuleiro();
 	    	
 	    	mP.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	    mP.frame.setSize(600,600);

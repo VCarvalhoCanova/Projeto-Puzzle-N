@@ -1,7 +1,7 @@
 package nPuzzleUsuario;
 import nPuzzle.Matriz;
 import nPuzzle.MatrizNumero;
-import nPuzzle.MatrizPath;
+import nPuzzleUi.MatrizPath;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,26 +12,27 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class MatrizAjuda extends MatrizNumero {
+public class MatrizAjuda{
 	JFrame frame = new JFrame ();
-	MatrizPath mP = new MatrizPath();
+	private MatrizPath mP;
+	private MatrizNumero mN;
 	private JLabel[][] labelResposta = new JLabel[3][3];
 	private BufferedImage [][] framesResposta = new BufferedImage [3][3];
-	private MatrizNumero mN= new MatrizNumero(3);
 	
-	public MatrizAjuda() {
-		mN.criarTabuleiro();
+	public MatrizAjuda(int tamanhoTabuleiro) {
 		int cont=0;
-		for(int i=0;i<3;i++) {
-    		for(int j=0;j<3;j++) {
+		mN = new MatrizNumero (tamanhoTabuleiro);
+		mN.criarTabuleiro();
+		for(int i=0;i<tamanhoTabuleiro;i++) {
+    		for(int j=0;j<tamanhoTabuleiro;j++) {
     				try {
-    					if(i==2 && j==2) {
-    						framesResposta [i] [j] = ImageIO.read(new File("C://Imagens//"+0+".jpg"));
+    					if(i==tamanhoTabuleiro-1 && j==tamanhoTabuleiro-1	) {
+    						framesResposta [i] [j] = ImageIO.read(new File("resource//Imagens//"+0+".jpg"));
     						labelResposta[i][j] = new JLabel(new ImageIcon(framesResposta[i][j]));
     						labelResposta[i][j].setBounds((100*i), (120*j), 85, 100);
     						frame.getContentPane().add(labelResposta[i][j]);
     					}
-						framesResposta [i] [j] = ImageIO.read(new File("C://Imagens//"+(cont+1)+".jpg"));
+						framesResposta [i] [j] = ImageIO.read(new File("resource//Imagens//"+mN.getMatrizResposta() [i][j]+".jpg"));
 						labelResposta[i][j] = new JLabel(new ImageIcon(framesResposta[i][j]));
 						labelResposta[i][j].setBounds((100*j), (120*i), 85, 100);
 						frame.getContentPane().add(labelResposta[i][j]);
@@ -41,10 +42,15 @@ public class MatrizAjuda extends MatrizNumero {
     			
     		}
     	}
-		    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    frame.setSize(600,600);
-		    frame.setLayout(null);
-		    frame.setVisible(true);
+		frame.setSize(600,600);
+	    frame.setLayout(null);
+	    frame.setVisible(true);
+		    
 	}
+	
+	
+	
+	
+	
 	
 }

@@ -1,29 +1,27 @@
-package nPuzzle;
+package nPuzzleMaluco;
 
 import java.util.Random;
-import java.util.Scanner;
+import nPuzzle.ValorInvalido;
 
-public class MatrizChar extends Matriz{
-Scanner sc = new Scanner(System.in);
+public class MatrizNPuzzleMalucoChar extends MatrizNPuzzleMaluco {
 	
-	private int tamanhoTabuleiro;
+	private int tamanhoTabuleiro,nivelDeMaluquice,x,y,xRand,yRand,temp;
 	private char [] [] tabuleiro;
 	private char [] [] matrizResposta; 
 	private char pecaSelecionada;
-	private int x,y,temp;
 	private int [] numerosUsados;
 	private Random rand = new Random();
 	
 	
 	
-	public MatrizChar(int tamanhoTabuleiro) {
-		super(tamanhoTabuleiro);
+	public MatrizNPuzzleMalucoChar(int tamanhoTabuleiro, int nivelDeMaluquice) {
+		super(tamanhoTabuleiro, nivelDeMaluquice);
 		this.tamanhoTabuleiro=tamanhoTabuleiro;
 		this.tabuleiro = new char[tamanhoTabuleiro][tamanhoTabuleiro];
 		this.matrizResposta = new char [tamanhoTabuleiro][tamanhoTabuleiro];
 		this.numerosUsados = new int [tamanhoTabuleiro*tamanhoTabuleiro];
+
 	}
-	
 	public void pecaMovimentaveis(){
 		for(int k=0;k<4;k++) {
 			pecasMoviChar[k]=0;
@@ -134,7 +132,47 @@ Scanner sc = new Scanner(System.in);
 		}
 		 temp=rand.nextInt(1,(tamanhoTabuleiro*tamanhoTabuleiro));
 		 return temp=check();
+	}
+	
+	public void chanceDeEmbaralhar(){
+		int temp= rand.nextInt(0,10);
+		if(nivelDeMaluquice>temp) {
+		}
+		embaralharPecas();
+	}
+	
+	public void pecasEmbaralhaveis() {
+		int cont=0;
+		while(true) {
+		xRand = rand.nextInt(0, tamanhoTabuleiro);
+		yRand= rand.nextInt(0, tamanhoTabuleiro);
+		if(tabuleiro[yRand][xRand]!=tabuleiro[y][x] && tabuleiro[yRand][xRand]!=0 && tabuleiro[yRand][xRand]!= numerosMalucos[0]) {
+			charMalucos[cont]=tabuleiro[yRand][xRand];
+			cont=cont+1;	
+		}
+		if(cont==2) {
+		break;	
+		}
 		
+	 }
+	}
+	
+	public void embaralharPecas() {
+		pecasEmbaralhaveis();
+		for(int i=0;i<tamanhoTabuleiro;i++) {
+			for(int j=0;j<tamanhoTabuleiro;j++) {
+				if(tabuleiro[i][j]== charMalucos [0]) {
+					tabuleiro[i][j]= charMalucos [1];
+				}else if(tabuleiro[i][j]==charMalucos[1]) {
+					tabuleiro[i][j]= charMalucos[0];
+				}
+			}
+		}
 	}
 
-} 
+	
+	
+	
+	
+		
+}

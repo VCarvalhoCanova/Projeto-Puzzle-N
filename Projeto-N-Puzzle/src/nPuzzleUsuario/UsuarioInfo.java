@@ -18,9 +18,9 @@ public class UsuarioInfo {
 		
 		
 	}
-	public  char modoDeJogo() {
+	public  String modoDeJogo() {
 		System.out.println("Qual o modo de jogo desejado ");
-		char modo = sc.next().charAt(0);
+		String modo = sc.next();
 		
 		return modo;
 	}
@@ -33,6 +33,11 @@ public class UsuarioInfo {
 		int dificuldade = sc.nextInt();
 		return dificuldade;
 		
+	}
+	public int nivelDeMaluquice() {
+		System.out.println("Escolha um nivel de maluquice entre 1 e 10");
+		int nivelDeMaluquice=sc.nextInt();
+		return nivelDeMaluquice;
 	}
 	
 	public String getNome() {

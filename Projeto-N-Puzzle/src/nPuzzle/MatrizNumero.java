@@ -13,29 +13,29 @@ public class MatrizNumero extends Matriz{
 	
 	public MatrizNumero(int tamanhoTabuleiro) {
 		super(tamanhoTabuleiro);
-		this.tabuleiro=new int [tamanhoTabuleiro] [tamanhoTabuleiro];
-		this.matrizResposta= new int [tamanhoTabuleiro] [tamanhoTabuleiro];
+		this.setTabuleiro(new int [tamanhoTabuleiro] [tamanhoTabuleiro]);
+		this.setMatrizResposta(new int [tamanhoTabuleiro] [tamanhoTabuleiro]);
 		this.numerosUsados = new int [tamanhoTabuleiro*tamanhoTabuleiro];
-		this.tamanhoTabuleiro=tamanhoTabuleiro;
+		this.setTamanhoTabuleiro(tamanhoTabuleiro);
 	}
 	
 	public int check() {
 		
-		for(int i=0;i<=8;i++) {
+		for(int i=0;i<getTamanhoTabuleiro()*getTamanhoTabuleiro();i++) {
 			if (numerosUsados[i]==temp){
 				numerosUsados[i]=0;
 				return temp;
 			}	
 		}
-		 temp=rand.nextInt(1,(tamanhoTabuleiro*tamanhoTabuleiro));
+		 temp=rand.nextInt(1,(getTamanhoTabuleiro()*getTamanhoTabuleiro()));
 		 return temp=check();
 	}
 		
 	
 	public void posicaoDe0() {
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<3;j++){
-				if(tabuleiro[i][j]==0) {
+		for(int i=0;i<getTamanhoTabuleiro();i++) {
+			for(int j=0;j<getTamanhoTabuleiro();j++){
+				if(getTabuleiro()[i][j]==0) {
 					x=j;
 					y=i;
 				}
@@ -45,12 +45,12 @@ public class MatrizNumero extends Matriz{
 	
 public void exibirTabuleiro() {
 		
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<3;j++) {
-				if(tabuleiro [i][j]==matrizResposta[i][j]) {
-					System.out.print(tabuleiro[i][j]+"=C ");
+		for(int i=0;i<getTamanhoTabuleiro();i++) {
+			for(int j=0;j<getTamanhoTabuleiro();j++) {
+				if(getTabuleiro() [i][j]==getMatrizResposta()[i][j]) {
+					System.out.print(getTabuleiro()[i][j]+"=C ");
 				}else {
-					System.out.print(tabuleiro[i][j]+"=E ");
+					System.out.print(getTabuleiro()[i][j]+"=E ");
 				}
 				
 			}
@@ -69,13 +69,13 @@ public void exibirTabuleiro() {
 			pecasMoviNum[k]=0;
 		}
 		if(x-1>-1) {
-			pecasMoviNum[0]=tabuleiro[y][x-1];
+			pecasMoviNum[0]=getTabuleiro()[y][x-1];
 		}if(x+1<3) {
-			pecasMoviNum[1]=tabuleiro[y][x+1];
+			pecasMoviNum[1]=getTabuleiro()[y][x+1];
 		}if(y-1>-1) {
-			pecasMoviNum[2]=tabuleiro[y-1][x];
+			pecasMoviNum[2]=getTabuleiro()[y-1][x];
 		}if(y+1<3) {
-			pecasMoviNum[3]=tabuleiro[y+1][x];
+			pecasMoviNum[3]=getTabuleiro()[y+1][x];
 		}
 	}
 		
@@ -83,25 +83,25 @@ public void exibirTabuleiro() {
 	public void criarTabuleiro() {
 		int cont=0;
 		
-		for(int i=0;i<(tamanhoTabuleiro*tamanhoTabuleiro);i++) {
+		for(int i=0;i<(getTamanhoTabuleiro()*getTamanhoTabuleiro());i++) {
 			numerosUsados [i]=i;
 	}
 		
 		
-		for(int i=0;i<tamanhoTabuleiro;i++) {
+		for(int i=0;i<getTamanhoTabuleiro();i++) {
 			temp=0;
-			for(int j=0;j<tamanhoTabuleiro;j++) {
-				matrizResposta[i][j]=cont+1;
+			for(int j=0;j<getTamanhoTabuleiro();j++) {
+				getMatrizResposta()[i][j]=cont+1;
 				cont=cont+1;
-				if(i==2 && j==2) {
-					matrizResposta[i][j]=0;
-					tabuleiro[i][j]=0;
+				if(i==(getTamanhoTabuleiro()-1) && j==(getTamanhoTabuleiro()-1)) {
+					getMatrizResposta()[i][j]=0;
+					getTabuleiro()[i][j]=0;
 					break;
 				}
-				temp = rand.nextInt(1,tamanhoTabuleiro*tamanhoTabuleiro);
+				temp = rand.nextInt(1,getTamanhoTabuleiro()*getTamanhoTabuleiro());
 				temp = check();
-				tabuleiro[i][j]=temp;
-				System.out.println(tabuleiro[i][j]);
+				getTabuleiro()[i][j]=temp;
+				//System.out.println(getTabuleiro()[i][j]);
 				
 			}
 		
@@ -132,15 +132,50 @@ public void exibirTabuleiro() {
 					||pecaSelecionada == pecasMoviNum[3]) {
 				
 			
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<3;j++) {
-				if(tabuleiro[i][j]==pecaSelecionada) {
-					tabuleiro[i][j]=0;
-					tabuleiro[y][x]=pecaSelecionada;
+		for(int i=0;i<getTamanhoTabuleiro();i++) {
+			for(int j=0;j<getTamanhoTabuleiro();j++) {
+				if(getTabuleiro()[i][j]==pecaSelecionada) {
+					getTabuleiro()[i][j]=0;
+					getTabuleiro()[y][x]=pecaSelecionada;
 				}
 			}
 		}
 		
 	}
+	}
+	
+	public void moverPecaP(int pecaSelecionada) {
+		for(int i=0;i<getTamanhoTabuleiro();i++) {
+			for(int j=0;j<getTamanhoTabuleiro();j++) {
+				if(getTabuleiro()[i][j]==pecaSelecionada) {
+					getTabuleiro()[i][j]=0;
+					getTabuleiro()[y][x]=pecaSelecionada;
+				}
+			}
+		}
+	}
+
+	public int [] [] getTabuleiro() {
+		return tabuleiro;
+	}
+
+	public void setTabuleiro(int [] [] tabuleiro) {
+		this.tabuleiro = tabuleiro;
+	}
+
+	public int [] [] getMatrizResposta() {
+		return matrizResposta;
+	}
+
+	public void setMatrizResposta(int [] [] matrizResposta) {
+		this.matrizResposta = matrizResposta;
+	}
+
+	public int getTamanhoTabuleiro() {
+		return tamanhoTabuleiro;
+	}
+
+	public void setTamanhoTabuleiro(int tamanhoTabuleiro) {
+		this.tamanhoTabuleiro = tamanhoTabuleiro;
 	}
 }

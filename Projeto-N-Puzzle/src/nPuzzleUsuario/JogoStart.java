@@ -1,14 +1,21 @@
 package nPuzzleUsuario;
 import nPuzzle.*;
 import nPuzzleMaluco.*;
+import nPuzzleUi.*;
 
 public class JogoStart {
-	private char modo;
-	private int dificuldade;
+
+
+
+	private String modo;
+	private int dificuldade,nivelDeMaluquice;
 	private UsuarioInfo user = new UsuarioInfo();
+	private MatrizAjuda mA;
 	private MatrizNumero mN; 
-	private MatrizChar mC= new MatrizChar(3);
-	private MatrizNPuzzleMalucoNumero mNPN = new MatrizNPuzzleMalucoNumero(3,5);
+	private MatrizChar mC;
+	private MatrizPath mP;
+	private MatrizNPuzzleMalucoNumero mNPN;
+	private MatrizNPuzzleMalucoChar mNPC;
 	private Recursos r = new Recursos();
 	
 	
@@ -16,27 +23,29 @@ public class JogoStart {
 	public void layout(){
 		
 		user.usuarioNome();
+		System.out.println("Numero-N"
+						+ " Char-C"
+						+ " Numero Maluco-NM"
+						+ " Char Maluco-CM"
+						+ " Path-P");
 		modo=user.modoDeJogo();
 		dificuldade=user.dificuldadeDoJogo();
+		
 		//r.limparTela();
 		
-		if(modo=='N') {
+		if(modo.equalsIgnoreCase("N")) {
 			layoutMatrizNumero();
-		
-		}else if(modo=='C') {
+		}else if(modo.equalsIgnoreCase("C")) {
 			layoutMatrizChar();
+		}else if(modo.equalsIgnoreCase("NM")) {
+			layoutMatrizNumeroMaluco();		
+		}else if(modo.equalsIgnoreCase("CM")) {
+			layoutMatrizCharMaluco();
 			
-		}else if(modo=='M') {
-			mNPN.criarTabuleiro();
-			r.limparTela();
-		while(true){
-			mNPN.exibirTabuleiro();
-			r.textoAcao();
-			mNPN.posicaoDe0();
-			mNPN.pecaMovimentaveis();
-			mNPN.moverPeca();
-			r.limparTela();
-			}	
+		}else if(modo.equalsIgnoreCase("A")) {
+			mA = new MatrizAjuda(dificuldade);
+		}else if(modo.equalsIgnoreCase("P")) {
+			layoutMatrizPath();
 		}
 	}
 	
@@ -58,8 +67,58 @@ public class JogoStart {
 			r.limparTela();
 		}
 		
-}
+}		
+		public void layoutMatrizPath() {
+			mP= new MatrizPath(dificuldade);
+			while(true) {
+				
+			}
+			
+			
+		}
+		
+		public void layoutMatrizNumeroMaluco() {
+			nivelDeMaluquice=user.nivelDeMaluquice();
+			mNPN= new MatrizNPuzzleMalucoNumero(dificuldade,nivelDeMaluquice);
+			mNPN.criarTabuleiro();
+			r.limparTela();
+		while(true){
+			mNPN.exibirTabuleiro();
+			r.textoAcao();
+			mNPN.posicaoDe0();
+			mNPN.pecaMovimentaveis();
+			try {
+				mNPN.moverPeca();
+			} catch (ValorInvalido e) {
+				e.printStackTrace();
+			}
+			mNPN.chanceDeEmbaralhar();
+			r.limparTela();
+			}	
+
+		}
+		public void layoutMatrizCharMaluco() {
+			nivelDeMaluquice=user.nivelDeMaluquice();
+			mNPC= new MatrizNPuzzleMalucoChar(dificuldade,nivelDeMaluquice);
+			mNPC.criarTabuleiro();
+			r.limparTela();
+		while(true){
+			mNPC.exibirTabuleiro();
+			r.textoAcao();
+			mNPC.posicaoDe0();
+			mNPC.pecaMovimentaveis();
+			try {
+				mNPC.moverPeca();
+			} catch (ValorInvalido e) {
+				e.printStackTrace();
+			}
+			mNPC.chanceDeEmbaralhar();
+			r.limparTela();
+			}
+		}
+		
 		public void layoutMatrizChar() {
+			mC= new MatrizChar(dificuldade);
 			mC.criarTabuleiro();
 			r.limparTela();
 			while(true){

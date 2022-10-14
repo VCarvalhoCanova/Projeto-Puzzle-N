@@ -1,19 +1,18 @@
 package nPuzzle;
 import java.util.Random;
-import java.util.Scanner;
+
 
 
 public class MatrizNumero extends Matriz{
-	private MatrizNumero mN;
 	private int [] [] tabuleiro;
 	private int [] [] matrizResposta;
 	private int [] numerosUsados;
-	private int x, y,tamanhoTabuleiro,temp;
+	private int x, y,tamanhoTabuleiro,temp,contador=0;
 	private Random rand = new Random();
 	
 	public MatrizNumero(int tamanhoTabuleiro) {
 		super(tamanhoTabuleiro);
-		this.setTabuleiro(new int [tamanhoTabuleiro] [tamanhoTabuleiro]);
+		this.tabuleiro= new int [tamanhoTabuleiro] [tamanhoTabuleiro];
 		this.setMatrizResposta(new int [tamanhoTabuleiro] [tamanhoTabuleiro]);
 		this.numerosUsados = new int [tamanhoTabuleiro*tamanhoTabuleiro];
 		this.setTamanhoTabuleiro(tamanhoTabuleiro);
@@ -36,8 +35,8 @@ public class MatrizNumero extends Matriz{
 		for(int i=0;i<getTamanhoTabuleiro();i++) {
 			for(int j=0;j<getTamanhoTabuleiro();j++){
 				if(getTabuleiro()[i][j]==0) {
-					x=j;
-					y=i;
+					setX(j);
+					setY(i);
 				}
 			}
 		}
@@ -68,14 +67,14 @@ public void exibirTabuleiro() {
 		for(int k=0;k<4;k++) {
 			pecasMoviNum[k]=0;
 		}
-		if(x-1>-1) {
-			pecasMoviNum[0]=getTabuleiro()[y][x-1];
-		}if(x+1<3) {
-			pecasMoviNum[1]=getTabuleiro()[y][x+1];
-		}if(y-1>-1) {
-			pecasMoviNum[2]=getTabuleiro()[y-1][x];
-		}if(y+1<3) {
-			pecasMoviNum[3]=getTabuleiro()[y+1][x];
+		if(getX()-1>-1) {
+			pecasMoviNum[0]=getTabuleiro()[getY()][getX()-1];
+		}if(getX()+1<getTamanhoTabuleiro()) {
+			pecasMoviNum[1]=getTabuleiro()[getY()][getX()+1];
+		}if(getY()-1>-1) {
+			pecasMoviNum[2]=getTabuleiro()[getY()-1][getX()];
+		}if(getY()+1<getTamanhoTabuleiro()) {
+			pecasMoviNum[3]=getTabuleiro()[getY()+1][getX()];
 		}
 	}
 		
@@ -136,7 +135,7 @@ public void exibirTabuleiro() {
 			for(int j=0;j<getTamanhoTabuleiro();j++) {
 				if(getTabuleiro()[i][j]==pecaSelecionada) {
 					getTabuleiro()[i][j]=0;
-					getTabuleiro()[y][x]=pecaSelecionada;
+					getTabuleiro()[getY()][getX()]=pecaSelecionada;
 				}
 			}
 		}
@@ -149,18 +148,19 @@ public void exibirTabuleiro() {
 			for(int j=0;j<getTamanhoTabuleiro();j++) {
 				if(getTabuleiro()[i][j]==pecaSelecionada) {
 					getTabuleiro()[i][j]=0;
-					getTabuleiro()[y][x]=pecaSelecionada;
+					getTabuleiro()[getY()][getX()]=pecaSelecionada;
 				}
 			}
 		}
+		contador=contador+1;
 	}
 
 	public int [] [] getTabuleiro() {
 		return tabuleiro;
 	}
 
-	public void setTabuleiro(int [] [] tabuleiro) {
-		this.tabuleiro = tabuleiro;
+	public void setTabuleiro(int tabuleiro,int i,int j) {
+		this.tabuleiro[i][j] = tabuleiro;
 	}
 
 	public int [] [] getMatrizResposta() {
@@ -177,5 +177,21 @@ public void exibirTabuleiro() {
 
 	public void setTamanhoTabuleiro(int tamanhoTabuleiro) {
 		this.tamanhoTabuleiro = tamanhoTabuleiro;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
 	}
 }

@@ -14,7 +14,7 @@ public abstract class MatrizNPuzzleMaluco implements Constantes {
 		public MatrizNPuzzleMaluco(int tamanhoTabuleiro, int nivelDeMaluquice) {
 			this.tabuleiro= new int [tamanhoTabuleiro] [tamanhoTabuleiro];
 			this.matrizResposta= new int [tamanhoTabuleiro] [tamanhoTabuleiro];
-			this.nivelDeMaluquice=nivelDeMaluquice;
+			this.setNivelDeMaluquice(nivelDeMaluquice);
 		}
 		public abstract int check(); 
 		
@@ -34,6 +34,12 @@ public abstract class MatrizNPuzzleMaluco implements Constantes {
 		public abstract void pecasEmbaralhaveis();
 		
 		public abstract void embaralharPecas();
+		public int getNivelDeMaluquice() {
+			return nivelDeMaluquice;
+		}
+		public void setNivelDeMaluquice(int nivelDeMaluquice) {
+			this.nivelDeMaluquice = nivelDeMaluquice;
+		}
 		
 		
 		

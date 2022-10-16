@@ -6,12 +6,15 @@ import nPuzzleUi.*;
 public class JogoStart {
 
 
-
+	private int elapsedTime;
+	private boolean jogoPrevio;
 	private String modo;
-	private int dificuldade,nivelDeMaluquice;
+	private int dificuldade,nivelDeMaluquice,contadorDePassos;
+	public int [][] tabuleiro;
+	private String nome;
 	private UsuarioInfo user;
-	private String nome="Default";
-	private MatrizAjuda mA;
+	private Menu m;
+	private JogoStart jS;
 	private MatrizNumero mN; 
 	private MatrizPath mP;
 	private PuzzleUiNumero mNU;
@@ -21,46 +24,98 @@ public class JogoStart {
 	
 	
 	public void layout(){
-		user= new UsuarioInfo();
-		
+		m= new Menu(false);
+		jogoPrevio=false;
+		m.menuStart();    
 	}
+	
 		
-		public void layoutJogo(String string) {
-			if(string.equalsIgnoreCase("N")) {
-				layoutMatrizNumero();
-			}else if(string.equalsIgnoreCase("C")) {
-				layoutMatrizChar();
-			}else if(string.equalsIgnoreCase("NM")) {
-				mNM = new MatrizNPuzzleMalucoNumero(nivelDeMaluquice);
-				layoutMatrizNumeroMaluco();		
-			}else if(string.equalsIgnoreCase("CM")) {
-				mNM = new MatrizNPuzzleMalucoNumero(nivelDeMaluquice);
-				layoutMatrizCharMaluco();
-			}else if(string.equalsIgnoreCase("P")) {
-				layoutMatrizPath();
+		public void layoutJogo(boolean jogoPrevio) {
+			user= new UsuarioInfo();
+			setmN(new MatrizNumero(dificuldade));
+			
+			if(modo.equalsIgnoreCase("N")) {
+				layoutMatrizNumero(jogoPrevio);
+			}else if(modo.equalsIgnoreCase("C")) {
+				layoutMatrizChar(jogoPrevio);
+			}else if(modo.equalsIgnoreCase("NM")) {
+				setmNM(new MatrizNPuzzleMalucoNumero(nivelDeMaluquice));
+				layoutMatrizNumeroMaluco(jogoPrevio);		
+			}else if(modo.equalsIgnoreCase("CM")) {
+				setmNM(new MatrizNPuzzleMalucoNumero(nivelDeMaluquice));
+				layoutMatrizCharMaluco(jogoPrevio);
+			}else if(modo.equalsIgnoreCase("P")) {
+				layoutMatrizPath(jogoPrevio);
 			}
 
 		}
 	
-		public void layoutMatrizNumero(){
-			mNU= new PuzzleUiNumero(getDificuldade(),0);
-		
-}		
-		public void layoutMatrizPath() {
-			mP= new MatrizPath(getDificuldade());
+		public void layoutMatrizNumero(boolean jogoPrevio){
+			mNU= new PuzzleUiNumero(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mNU.setNome(nome);
+			mNU.setModo(modo);
+			mNU.setElapsedTime(elapsedTime);
 		}
 		
-		public void layoutMatrizNumeroMaluco() {
-			mNU= new PuzzleUiNumero(getDificuldade(),nivelDeMaluquice);
-		}
-		public void layoutMatrizCharMaluco() {
-			mCU= new NPuzzleUiChar(getDificuldade(),nivelDeMaluquice);
+		public void layoutMatrizPath(boolean jogoPrevio) {
+			mP= new MatrizPath(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mP.setNome(nome);
+			mP.setModo(modo);
+			mP.setElapsedTime(elapsedTime);
 		}
 		
-		public void layoutMatrizChar() {
-			mCU= new NPuzzleUiChar(getDificuldade(),0);
+		public void layoutMatrizNumeroMaluco(boolean jogoPrevio) {
+			mNU= new PuzzleUiNumero(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mNU.setNome(nome);
+			mNU.setModo(modo);
+			mNU.setElapsedTime(elapsedTime);
 		}
-	
+		public void layoutMatrizCharMaluco(boolean jogoPrevio) {
+			mCU= new NPuzzleUiChar(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mCU.setNome(nome);
+			mCU.setModo(modo);
+			mCU.setElapsedTime(elapsedTime);
+			
+		}
+		
+		public void layoutMatrizChar(boolean jogoPrevio) {
+			mCU= new NPuzzleUiChar(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mCU.setNome(nome);
+			mCU.setModo(modo);
+			mCU.setElapsedTime(elapsedTime);
+		}
+		
+		public void CarregarJogo() {
+			
+			try {
+				UsuarioInfo user = (UsuarioInfo) SalvarECarregar.load("resource//1.save");
+				nome = user.getNome();
+				modo = user.getModoDeJogo();
+				dificuldade=user.getDificuldade();
+				nivelDeMaluquice=user.getNivelDeMaluquice();
+				tabuleiro=user.getTabuleiro();
+				contadorDePassos=user.getContadorDePassos();
+				elapsedTime = user.getElapsedTime();
+			//	for(int i=0;i<dificuldade;i++) {
+			//		for(int j=0;j<dificuldade;j++) {
+			//			System.out.println(tabuleiro[i][j]);
+			//		}
+			//	}
+				System.out.println(elapsedTime);
+				layoutJogo(true);
+				
+			} catch (Exception e) {
+				m=new Menu(false);
+				m.naoPodeCarregar();
+			} 
+			
+
+		}
+
+		
+		
+		
+		
 	
 	
 	public static void main(String[] args) {
@@ -86,13 +141,6 @@ public class JogoStart {
 		this.user = user;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 
 	public String getModo() {
 		return modo;
@@ -108,5 +156,33 @@ public class JogoStart {
 
 	public void setNivelDeMaluquice(int nivelDeMaluquice) {
 		this.nivelDeMaluquice = nivelDeMaluquice;
+	}
+	public int getElapsedTime() {
+		return elapsedTime;
+	}
+	public void setElapsedTime(int elapsedTime) {
+		this.elapsedTime = elapsedTime;
+	}
+	public void setNome(String nome) {
+		this.nome=nome;
+		
+	}
+	public MatrizNumero getmN() {
+		return mN;
+	}
+	public void setmN(MatrizNumero mN) {
+		this.mN = mN;
+	}
+	public MatrizNPuzzleMalucoNumero getmNM() {
+		return mNM;
+	}
+	public void setmNM(MatrizNPuzzleMalucoNumero mNM) {
+		this.mNM = mNM;
+	}
+	public int [][] getTabuleiro() {
+		return tabuleiro;
+	}
+	public void setTabuleiro(int [][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
 	}
 }

@@ -1,5 +1,4 @@
 package nPuzzleUsuario;
-import nPuzzle.Matriz;
 import nPuzzle.MatrizNumero;
 import nPuzzleUi.MatrizPath;
 
@@ -29,6 +28,8 @@ public class MatrizAjuda{
 			  matrizAjudaPath(tamanhoTabuleiro);
 		  }else if(modoAjuda.equals("C")) {
 			  matrizAjudaChar(tamanhoTabuleiro);
+		  }else if(modoAjuda.equals("N")) {
+			  matrizAjudaNumero(tamanhoTabuleiro);
 		  }
 	}
 	

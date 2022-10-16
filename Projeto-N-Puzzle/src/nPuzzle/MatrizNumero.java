@@ -3,15 +3,14 @@ import java.util.Random;
 
 
 
-public class MatrizNumero extends Matriz{
+public class MatrizNumero implements Constantes{
 	private int [] [] tabuleiro;
 	private int [] [] matrizResposta;
 	private int [] numerosUsados;
-	private int x, y,tamanhoTabuleiro,temp,contador=0;
+	private int x, y,tamanhoTabuleiro,temp,winCon,contador=0;
 	private Random rand = new Random();
 	
 	public MatrizNumero(int tamanhoTabuleiro) {
-		super(tamanhoTabuleiro);
 		this.tabuleiro= new int [tamanhoTabuleiro] [tamanhoTabuleiro];
 		this.setMatrizResposta(new int [tamanhoTabuleiro] [tamanhoTabuleiro]);
 		this.numerosUsados = new int [tamanhoTabuleiro*tamanhoTabuleiro];
@@ -108,39 +107,15 @@ public void exibirTabuleiro() {
 		
 	}
 	
-	
-	
-	public void moverPeca()throws ValorInvalido {
-		int pecaSelecionada=0;
-		for(int k=0;k<4;k++) {
-			if(pecasMoviNum[k]!=0) {
-				System.out.println(pecasMoviNum[k]);
-			}	
-		}
-			System.out.println("Insira um dos numeros mostrados");
-		while(true) {
-			try {
-			pecaSelecionada= sc.nextInt();	
-			break;
-			}catch (Exception e){
-				System.err.println("Por favor, insira um número ");
-			    sc.next();
-			}
-		}
-			if(pecaSelecionada == pecasMoviNum[0]|| pecaSelecionada == pecasMoviNum[1]||pecaSelecionada == pecasMoviNum[2]
-					||pecaSelecionada == pecasMoviNum[3]) {
-				
-			
+	public void winCondition() {
+		winCon=0;
 		for(int i=0;i<getTamanhoTabuleiro();i++) {
 			for(int j=0;j<getTamanhoTabuleiro();j++) {
-				if(getTabuleiro()[i][j]==pecaSelecionada) {
-					getTabuleiro()[i][j]=0;
-					getTabuleiro()[getY()][getX()]=pecaSelecionada;
+				if(getTabuleiro()[i][j]==getMatrizResposta()[i][j]) {
+					winCon=winCon+1; 
 				}
 			}
 		}
-		
-	}
 	}
 	
 	public void moverPecaP(int pecaSelecionada) {
@@ -152,12 +127,18 @@ public void exibirTabuleiro() {
 				}
 			}
 		}
-		contador=contador+1;
+		setContador(getContador()+1);
+		winCondition();
 	}
 
 	public int [] [] getTabuleiro() {
 		return tabuleiro;
 	}
+	
+	public void setTabuleiroMatriz(int [][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
+	}
+
 
 	public void setTabuleiro(int tabuleiro,int i,int j) {
 		this.tabuleiro[i][j] = tabuleiro;
@@ -194,4 +175,15 @@ public void exibirTabuleiro() {
 	public void setX(int x) {
 		this.x = x;
 	}
+	public int getContador() {
+		return contador;
+	}
+	public int getWinCon() {
+		return winCon;
+	}
+
+	public void setContador(int contador) {
+		this.contador = contador;
+	}
+	
 }

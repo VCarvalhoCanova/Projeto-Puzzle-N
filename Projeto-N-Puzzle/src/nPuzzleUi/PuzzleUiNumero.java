@@ -254,7 +254,7 @@ public class PuzzleUiNumero implements ActionListener {
     				frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     				frame.setVisible(false);
     				Ranking r= new Ranking();
-    				r.verificarPontuacao(mN.getContador(), modo,nome,mN.getTamanhoTabuleiro(), mNM.getNivelDeMaluquice());
+    				r.verificarPontuacao(elapsedTime, modo,nome,mN.getTamanhoTabuleiro(), mNM.getNivelDeMaluquice());
     			}
     			if(mNM.getNivelDeMaluquice()!=0) {
     				mNM.chanceDeEmbaralhar();

@@ -16,13 +16,15 @@ public class MatrizAjuda{
 	JFrame frame = new JFrame ();
 	private MatrizPath mP;
 	private MatrizNumero mN;
-	private JLabel[][] labelResposta = new JLabel[3][3];
+	private JLabel[][] labelResposta;
 	private JButton [] [] button;
-	private BufferedImage [][] framesResposta = new BufferedImage [3][3];
+	private BufferedImage [][] framesResposta;
 	
 	public MatrizAjuda(int tamanhoTabuleiro, String modoAjuda) {
 		mN = new MatrizNumero (tamanhoTabuleiro);
 		mN.criarTabuleiro();
+		labelResposta = new JLabel[tamanhoTabuleiro][tamanhoTabuleiro];
+		framesResposta= new BufferedImage[tamanhoTabuleiro][tamanhoTabuleiro];
 		button = new JButton [tamanhoTabuleiro] [tamanhoTabuleiro];
 		  if(modoAjuda.equals("A")) {
 			  matrizAjudaPath(tamanhoTabuleiro);
@@ -46,7 +48,7 @@ public class MatrizAjuda{
     					}
 						framesResposta [i] [j] = ImageIO.read(new File("resource//Imagens//"+mN.getMatrizResposta() [i][j]+".jpg"));
 						labelResposta[i][j] = new JLabel(new ImageIcon(framesResposta[i][j]));
-						labelResposta[i][j].setBounds((100*j), (120*i), 85, 100);
+						labelResposta[i][j].setBounds((140*j), (120*i), 140, 100);
 						frame.getContentPane().add(labelResposta[i][j]);
 						cont++;
 					} catch (IOException e) {
@@ -54,7 +56,7 @@ public class MatrizAjuda{
     			
     		}
     	}
-		frame.setSize(600,600);
+		frame.setSize(700,700);
 	    frame.setLayout(null);
 	    frame.setVisible(true);
 	}
@@ -74,7 +76,7 @@ public class MatrizAjuda{
 
     			
     		}
-		frame.setSize(600,600);
+		frame.setSize(800,800);
 	    frame.setLayout(null);
 	    frame.setVisible(true);
 
@@ -94,7 +96,7 @@ public class MatrizAjuda{
 
     			
     		}
-		frame.setSize(600,600);
+		frame.setSize(800,800);
 	    frame.setLayout(null);
 	    frame.setVisible(true);
 		

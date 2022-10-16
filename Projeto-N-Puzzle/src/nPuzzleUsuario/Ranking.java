@@ -1,5 +1,6 @@
 package nPuzzleUsuario;
 
+import java.io.File;
 import java.io.Serializable;
 
 import javax.swing.JFrame;
@@ -13,11 +14,12 @@ public class Ranking implements Serializable{
     private JLabel [] labelRanking= new JLabel [10];
 	private  String [] top10Jogadores= new String [10];
 	private int [] top10Pontuacoes= new int [10];
+	private int [] top10Tempos = new int[10];
 	private String [] modoDoJogador= new String [10];
-	private int novaPontuacao;
+	private int novaPontuacao,novoTempo;
 	private String novoJogador;
 	private String novoModo;
-	private int temp;
+	private int temp,tempTempo;
 	private String tempNome="Bot";
 	private String tempModo="N";
 	
@@ -26,6 +28,7 @@ public class Ranking implements Serializable{
 		this.top10Jogadores=top10Jogadores;
 		this.top10Pontuacoes=top10Pontuacoes;
 		this.modoDoJogador=modoDoJogador;
+		this.top10Tempos=top10Tempos;
 	}
 	
 	 public void criarFrame() {
@@ -39,12 +42,12 @@ public class Ranking implements Serializable{
 		for(int i=9;i>-1;i--) {
 			try {
 				loadRanking();
-				labelRanking[i]= new JLabel("Nome: "+top10Jogadores[i]+" Modo: "+modoDoJogador[i]+" Pontuacao: "+top10Pontuacoes[i]);
+				labelRanking[i]= new JLabel("Nome: "+top10Jogadores[i]+" Modo: "+modoDoJogador[i]+" Pontuacao: "+top10Pontuacoes[i]+" Melhor Tempo: "+top10Tempos[i]);
 			}catch(Exception e){
 				
 			}
 			
-			labelRanking[i].setBounds(200, 40*i, 400, 40);
+			labelRanking[i].setBounds(200, 50*i, 500, 40);
 			frame.getContentPane().add(labelRanking[i]);
 		}
 	}
@@ -58,46 +61,76 @@ public class Ranking implements Serializable{
 	public void saveRanking() {
 		Ranking r = new Ranking();
 		for(int i=9;i>-1;i--) {
+			try {
 			r.top10Jogadores[i]=top10Jogadores[i];
 			r.top10Pontuacoes[i]=top10Pontuacoes[i];
 			r.modoDoJogador[i]=modoDoJogador[i];
+			r.top10Tempos[i]=top10Tempos[i];
+			}catch(Exception e){
+				r.top10Jogadores[i]="AAA";
+				r.top10Pontuacoes[i]=1000-(100*i);
+				r.modoDoJogador[i]="N";
+				r.top10Tempos[i]=((500*i)+600);
+			}
 		}
 		try {
 			SalvarECarregar.save(r, "resource//1.ranking");
-			System.out.println("salvo");
+			
 		}catch(Exception e){
-				System.out.println("Não conseguiu Salvar");
+				
 		}
 		
 	}
-	
-	
+	public void rankingDefault() {
+		Ranking r= new Ranking();
+		for(int i=9;i>-1;i--) {
+			r.top10Jogadores[i]="AAA";
+			r.top10Pontuacoes[i]=1000-(100*i);
+			r.modoDoJogador[i]="N";
+			r.top10Tempos[i]=((50*i)+50);
+		}
+		try{
+			SalvarECarregar.save(r, "resource//1.ranking");
+			
+		}catch(Exception e) {
+		
+		}
+	}
+		
 	public void loadRanking() {
 		try {
 			Ranking r = (Ranking) SalvarECarregar.load("resource//1.ranking");
 			top10Jogadores=r.top10Jogadores;
 			top10Pontuacoes=r.top10Pontuacoes;
 			modoDoJogador=r.modoDoJogador;
-			
+			top10Tempos=r.top10Tempos;
 		}catch (Exception e) {
 			loadErro();
 		}
 		
 	}
 
-	public void verificarPontuacao(int contadorDePassos,String modo, String nome,int dificuldade, int nivelDeMaluquice) {
-		novaPontuacao=(500*dificuldade)+(10000*nivelDeMaluquice)-(1*contadorDePassos);
+	public void verificarPontuacao(int elapsedTime,String modo, String nome,int dificuldade, int nivelDeMaluquice) {
+		File f = new File("resource//1.ranking");
+		if(f.exists()==false) {
+			rankingDefault();
+		}
+		
+		m= new Menu(false);
+		novaPontuacao=(500*dificuldade)+(10000*nivelDeMaluquice)-(1*elapsedTime);
 		novoModo=modo;
 		novoJogador=nome;
+		novoTempo=elapsedTime;
 		System.out.println(novoJogador);
 		loadRanking();
 		rankearJogadores();
 		criarFrame();
 		criarLabelRanking();
-		//m.voltarAoMenuPrincipal();
+		m.voltarAoMenuPrincipal();
 	}
 	
 	public void rankearJogadores() {
+		saveRanking();
 		for(int i=9;i>-1;i--) {
 			if(novaPontuacao>top10Pontuacoes[i]) {
 				temp=top10Pontuacoes[i];
@@ -106,11 +139,14 @@ public class Ranking implements Serializable{
 				top10Jogadores[i]=novoJogador;
 				tempModo.replace(tempModo, top10Jogadores[i]);
 				modoDoJogador[i]=novoModo;
-				
+				tempTempo=top10Tempos[i];
+				top10Tempos[i]=novoTempo;
 				try {
+					
 					top10Pontuacoes[i+1]=temp;
 					top10Jogadores[i+1]=tempNome;
 					modoDoJogador[i+1]=tempModo;
+					top10Tempos[i+1]=tempTempo;
 				}catch(Exception e){
 					
 				}

@@ -49,7 +49,7 @@ public class MatrizPath implements ActionListener{
 				mN.setMatrizResposta(matrizResposta);	
 			}
 	    	
-	    	frame.setSize(800, 800);
+	    	frame.setSize(900, 900);
 	    	Imagens = new BufferedImage [tamanhoTabuleiro] [tamanhoTabuleiro];
 	    	setLabel(new JLabel [tamanhoTabuleiro] [tamanhoTabuleiro]);
 			setButton(new JButton[4]);
@@ -63,19 +63,19 @@ public class MatrizPath implements ActionListener{
 	    	mudarButton();
 	    	
 	    	buttonMenu= new JButton("Menu");
-	    	buttonMenu.setBounds(600, 200, 100, 100);
+	    	buttonMenu.setBounds(700, 200, 100, 100);
 	    	buttonMenu.setFocusable(false);
 	    	buttonMenu.addActionListener(this);
 	    	frame.add(buttonMenu);
 	    	
 	    	buttonSalvar = new JButton("Salvar");
-	    	buttonSalvar.setBounds(600,400,100,100);
+	    	buttonSalvar.setBounds(700,400,100,100);
 	    	buttonSalvar.setFocusable(false);
 	    	buttonSalvar.addActionListener(this);
 	    	frame.add(buttonSalvar);
 	    	
 	     	buttonAjuda=new JButton ("Ajuda");
-	     	buttonAjuda.setBounds(600, 300, 100, 100);
+	     	buttonAjuda.setBounds(700, 300, 100, 100);
 	     	buttonAjuda.setFocusable(false);
 	     	buttonAjuda.addActionListener(this);
 	     	frame.add(buttonAjuda);
@@ -114,7 +114,7 @@ public class MatrizPath implements ActionListener{
 	    				try {
 	    					Imagens [i] [j] = ImageIO.read(new File("resource//Imagens//"+mN.getTabuleiro() [i] [j]+".jpg"));
 							buttonGame[i][j] = new JButton(new ImageIcon(Imagens[i][j]));
-							buttonGame[i][j].setBounds((100*j), (120*i), 75, 120);
+							buttonGame[i][j].setBounds((140*j), (100*i), 140, 100);
 							buttonGame[i][j].setBorder(BorderFactory.createEmptyBorder());
 							buttonGame[i][j].addActionListener(this);
 							frame.getContentPane().add(buttonGame[i][j]);
@@ -249,7 +249,7 @@ public class MatrizPath implements ActionListener{
 	        				frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	        				frame.setVisible(false);
 	        				Ranking r= new Ranking();
-	        				r.verificarPontuacao(mN.getContador(), modo, nome, mN.getTamanhoTabuleiro(), 0);
+	        				r.verificarPontuacao(elapsedTime, modo, nome, mN.getTamanhoTabuleiro(), 0);
 	        			}
 	    				frame.getContentPane().removeAll();
 	    				criarButtons();

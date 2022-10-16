@@ -94,6 +94,9 @@ public class Menu implements ActionListener {
 		
 
 	}
+	public void voltarAoMenuPrincipal() {
+		menuStart();
+	}
     
 	public void usuarioNome() {
 		//System.out.print("Digite seu Nome: ");
@@ -168,7 +171,9 @@ public class Menu implements ActionListener {
     	   frame.repaint();
     	   
        }if(e.getSource()==buttonStart[1]) {
+    	   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	   frame.setVisible(false);
+    	   
     	   
        }if(e.getSource()==buttonStart[2]) {
     	   frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -266,7 +271,6 @@ public class Menu implements ActionListener {
 			jS.setNome(nome);
 	        textField.selectAll();
 	        textArea.setCaretPosition(textArea.getDocument().getLength());
-	        System.out.println(nome);
 	        frame.getContentPane().removeAll();
 	        dificuldadeDoJogo();    
 	        frame.repaint();

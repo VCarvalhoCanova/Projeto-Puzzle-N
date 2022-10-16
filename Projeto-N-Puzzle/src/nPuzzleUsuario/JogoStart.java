@@ -10,7 +10,7 @@ public class JogoStart {
 	private boolean jogoPrevio;
 	private String modo;
 	private int dificuldade,nivelDeMaluquice,contadorDePassos;
-	public int [][] tabuleiro;
+	public int [][] tabuleiro,matrizResposta;
 	private String nome;
 	private UsuarioInfo user;
 	private Menu m;
@@ -51,27 +51,27 @@ public class JogoStart {
 		}
 	
 		public void layoutMatrizNumero(boolean jogoPrevio){
-			mNU= new PuzzleUiNumero(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mNU= new PuzzleUiNumero(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,matrizResposta,jogoPrevio);
 			mNU.setNome(nome);
 			mNU.setModo(modo);
 			mNU.setElapsedTime(elapsedTime);
 		}
 		
 		public void layoutMatrizPath(boolean jogoPrevio) {
-			mP= new MatrizPath(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mP= new MatrizPath(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,matrizResposta,jogoPrevio);
 			mP.setNome(nome);
 			mP.setModo(modo);
 			mP.setElapsedTime(elapsedTime);
 		}
 		
 		public void layoutMatrizNumeroMaluco(boolean jogoPrevio) {
-			mNU= new PuzzleUiNumero(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mNU= new PuzzleUiNumero(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,matrizResposta,jogoPrevio);
 			mNU.setNome(nome);
 			mNU.setModo(modo);
 			mNU.setElapsedTime(elapsedTime);
 		}
 		public void layoutMatrizCharMaluco(boolean jogoPrevio) {
-			mCU= new NPuzzleUiChar(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mCU= new NPuzzleUiChar(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,matrizResposta,jogoPrevio);
 			mCU.setNome(nome);
 			mCU.setModo(modo);
 			mCU.setElapsedTime(elapsedTime);
@@ -79,7 +79,7 @@ public class JogoStart {
 		}
 		
 		public void layoutMatrizChar(boolean jogoPrevio) {
-			mCU= new NPuzzleUiChar(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,jogoPrevio);
+			mCU= new NPuzzleUiChar(dificuldade,nivelDeMaluquice,tabuleiro,contadorDePassos,matrizResposta,jogoPrevio);
 			mCU.setNome(nome);
 			mCU.setModo(modo);
 			mCU.setElapsedTime(elapsedTime);
@@ -94,14 +94,9 @@ public class JogoStart {
 				dificuldade=user.getDificuldade();
 				nivelDeMaluquice=user.getNivelDeMaluquice();
 				tabuleiro=user.getTabuleiro();
+				matrizResposta=user.getMatrizResposta();
 				contadorDePassos=user.getContadorDePassos();
 				elapsedTime = user.getElapsedTime();
-			//	for(int i=0;i<dificuldade;i++) {
-			//		for(int j=0;j<dificuldade;j++) {
-			//			System.out.println(tabuleiro[i][j]);
-			//		}
-			//	}
-				System.out.println(elapsedTime);
 				layoutJogo(true);
 				
 			} catch (Exception e) {

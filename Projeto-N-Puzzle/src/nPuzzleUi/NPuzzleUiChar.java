@@ -1,5 +1,6 @@
 package nPuzzleUi;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ import nPuzzleMaluco.MatrizNPuzzleMalucoNumero;
 import nPuzzleUsuario.JogoStart;
 import nPuzzleUsuario.MatrizAjuda;
 import nPuzzleUsuario.Menu;
+import nPuzzleUsuario.Ranking;
 import nPuzzleUsuario.SalvarECarregar;
 import nPuzzleUsuario.UsuarioInfo;
 
@@ -29,24 +31,22 @@ public class NPuzzleUiChar implements ActionListener {
 	 private Menu m;
 	 private MatrizAjuda mA;
 	 private JButton[] [] button;
+	 private JButton [] buttonPausa= new JButton [2];
 	 private JButton buttonAjuda,buttonMenu,buttonSalvar;
 	 private JFrame frame= new JFrame();
-	 private JLabel labelContador,labelTemporizador;
+	 private JLabel labelContador,labelTemporizador,labelSalvar;
 		
 	 
-	 public NPuzzleUiChar(int tamanhoTabuleiro,int nivelDeMaluquice,int [][]tabuleiro,int contadorDeMovimento,boolean jogoPrevio){
+	 public NPuzzleUiChar(int tamanhoTabuleiro,int nivelDeMaluquice,int [][]tabuleiro,int contadorDeMovimento,int [][] matrizResposta,boolean jogoPrevio){
 			mN= new MatrizNumero (tamanhoTabuleiro);
 			mNM = new MatrizNPuzzleMalucoNumero(nivelDeMaluquice);
 			if(jogoPrevio==false) {
 		    	mN.criarTabuleiro();
 				}else {
 					mN.setContador(contadorDeMovimento);
-					for(int i=0;i<tamanhoTabuleiro;i++) {
-						for(int j=0;j<tamanhoTabuleiro;j++) {
-							mN.setTabuleiroMatriz(tabuleiro);
-							System.out.println(mN.getTabuleiro()[i][j]);
-						}
-					}			
+					mN.setTabuleiroMatriz(tabuleiro);
+					mN.setMatrizResposta(matrizResposta);
+						
 				}
 	    	button = new JButton [tamanhoTabuleiro][tamanhoTabuleiro];
 
@@ -81,7 +81,20 @@ public class NPuzzleUiChar implements ActionListener {
 		}
 			
 			
-			
+	 public void pausa() {
+			buttonPausa[0]= new JButton("Continuar");
+	    	buttonPausa[0].setBounds(300, 200, 300, 100);
+	    	buttonPausa[0].setFocusable(false);
+	    	buttonPausa[0].addActionListener(this);
+	    	frame.getContentPane().add(buttonPausa[0]);
+	    			
+	    	buttonPausa[1]=new JButton("Voltar ao menu Principal");
+	    	buttonPausa[1].setBounds(300, 500, 300, 100);
+	    	buttonPausa[1].setFocusable(false);
+	    	buttonPausa[1].addActionListener(this);
+	    	frame.getContentPane().add(buttonPausa[1]);
+	    	
+		}
 		
 		
 		public void mudarButton() {
@@ -98,6 +111,10 @@ public class NPuzzleUiChar implements ActionListener {
 	    			    	button[i][j].setFocusable(false);
 	    			    	button[i][j].addActionListener(this);	
 	    			    	frame.getContentPane().add(button[i][j]);
+	    			    	
+	    			    	 if(mN.getTabuleiro()[i][j]==mN.getMatrizResposta()[i][j]) {
+	    	    				 button[i][j].setBackground(Color.green);
+	    	    			 }
 	    			    		}
 
 	    			
@@ -138,7 +155,7 @@ public class NPuzzleUiChar implements ActionListener {
 			 minutos=(getElapsedTime()/60000)%60;
 			 segundos=(getElapsedTime()/1000)%60;
 			 labelTemporizador= new JLabel("Tempo: "+minutos+": "+segundos);
-			 labelTemporizador.setBounds(0, 600, 150, 100);
+			 labelTemporizador.setBounds(0, 700, 150, 100);
 			 frame.add(labelTemporizador);
 		}
 		
@@ -147,6 +164,16 @@ public class NPuzzleUiChar implements ActionListener {
 				labelContador= new JLabel("Movimentos feitos "+mN.getContador());
 				labelContador.setBounds(0, (100*mN.getTamanhoTabuleiro())+100, 200, 100);
 				frame.add(labelContador);
+			}
+		 public void foiPossivelSalvar() {
+				labelSalvar= new JLabel("Foi possivel salvar");
+				labelSalvar.setBounds(200, 600, 200, 100);
+				frame.add(labelSalvar);
+			}
+			public void naoFoiPossivelSalvar() {
+				labelSalvar= new JLabel("Não foi possivel Salvar");
+				labelSalvar.setBounds(100, 800, 200, 100);
+				frame.add(labelSalvar);
 			}
 		 
 		 Timer time = new Timer(1000, new ActionListener() {
@@ -167,7 +194,9 @@ public class NPuzzleUiChar implements ActionListener {
 			public void StartTimer() {
 				time.start();
 			}
-		 
+			public void stopTimer() {
+				time.stop();
+			}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -177,19 +206,39 @@ public class NPuzzleUiChar implements ActionListener {
 		    		mA= new MatrizAjuda(mN.getTamanhoTabuleiro(),"C");
 		    		break;
 				}if(e.getSource()==buttonMenu) {
-					m= new Menu(false);
-					m.pausa();
+					pausa();
 					break;
 				}
+				
+				
+				
+				
 				if(e.getSource()==buttonSalvar) {
 					salvarJogo();
+					frame.repaint();
 					break;
 				}
-					if(e.getSource()==buttonMenu) {
-						m= new Menu(false);
-						m.pausa();
-						break;
-					}
+				if(e.getSource()==buttonMenu) {
+					frame.getContentPane().removeAll();
+					pausa();
+					frame.repaint();
+					stopTimer();
+					count=0;
+					break;
+				}
+				
+				 if(e.getSource()==buttonPausa[0]) {
+					 frame.getContentPane().removeAll();
+					 criarButton();
+					 mudarLabel();
+			    	 frame.repaint();
+			       }else if(e.getSource()==buttonPausa[1]) {
+			    	   frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			    	   frame.setVisible(false);
+			    	   jS = new JogoStart();
+			    	   jS.layout();
+			    	   break;
+			       }
 
 		    		
 		    		
@@ -203,6 +252,13 @@ public class NPuzzleUiChar implements ActionListener {
 		    			}
 		    			
 		    			mN.moverPecaP(mN.getTabuleiro()[i][j]);
+		    			mN.winCondition();
+		    			if(mN.getWinCon()==(mN.getTamanhoTabuleiro()*mN.getTamanhoTabuleiro())) {
+		    				frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		    				frame.setVisible(false);
+		    				Ranking r = new Ranking();
+		    				r.verificarPontuacao(mN.getContador(), modo, nome, mN.getTamanhoTabuleiro(), mNM.getNivelDeMaluquice());
+		    			}
 		    			if(mNM.getNivelDeMaluquice()!=0) {
 		    				mNM.chanceDeEmbaralhar();
 		    			}
@@ -226,14 +282,15 @@ public class NPuzzleUiChar implements ActionListener {
 			user.setNivelDeMaluquice(mNM.getNivelDeMaluquice());
 			user.setContadorDePassos(mN.getContador());
 			user.setTabuleiro(mN.getTabuleiro());
-			user.setElapsedTime(getElapsedTime());
+			user.setMatrizResposta(mN.getMatrizResposta());
+			user.setElapsedTime(elapsedTime);
 			
 			try {
 				SalvarECarregar.save(user, "resource//1.save");
-				System.out.println("salvo");
-				System.out.println(user.getModoDeJogo());
+				foiPossivelSalvar();
+
 			}catch(Exception e){
-					System.out.print("Não conseguiu Salvar");
+				naoFoiPossivelSalvar();
 			}
 		}
 		public String getNome() {

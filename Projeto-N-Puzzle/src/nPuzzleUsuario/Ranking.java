@@ -15,7 +15,11 @@ public class Ranking implements Serializable{
 	private int [] top10Pontuacoes= new int [10];
 	private String [] modoDoJogador= new String [10];
 	private int novaPontuacao;
+	private String novoJogador;
+	private String novoModo;
 	private int temp;
+	private String tempNome="Bot";
+	private String tempModo="N";
 	
 	
 	public Ranking() {
@@ -30,6 +34,7 @@ public class Ranking implements Serializable{
 	    	frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		    frame.setVisible(true);
 	    }
+	 
 	public void criarLabelRanking() {
 		for(int i=9;i>-1;i--) {
 			try {
@@ -39,7 +44,7 @@ public class Ranking implements Serializable{
 				
 			}
 			
-			labelRanking[i].setBounds(200, 40*i, 200, 40);
+			labelRanking[i].setBounds(200, 40*i, 400, 40);
 			frame.getContentPane().add(labelRanking[i]);
 		}
 	}
@@ -60,9 +65,8 @@ public class Ranking implements Serializable{
 		try {
 			SalvarECarregar.save(r, "resource//1.ranking");
 			System.out.println("salvo");
-			System.out.println(r.top10Jogadores[0]);
 		}catch(Exception e){
-				System.out.print("Não conseguiu Salvar");
+				System.out.println("Não conseguiu Salvar");
 		}
 		
 	}
@@ -81,22 +85,42 @@ public class Ranking implements Serializable{
 		
 	}
 
-	public void verificarPontuacao(int contadorDePassos,String Modo, int dificuldade, int nivelDeMaluquice) {
-		novaPontuacao=(300*dificuldade)+(600*nivelDeMaluquice)-(5*contadorDePassos);
+	public void verificarPontuacao(int contadorDePassos,String modo, String nome,int dificuldade, int nivelDeMaluquice) {
+		novaPontuacao=(500*dificuldade)+(10000*nivelDeMaluquice)-(1*contadorDePassos);
+		novoModo=modo;
+		novoJogador=nome;
+		System.out.println(novoJogador);
+		loadRanking();
+		rankearJogadores();
+		criarFrame();
+		criarLabelRanking();
+		//m.voltarAoMenuPrincipal();
 	}
 	
 	public void rankearJogadores() {
-		for(int i=9;i>0;i++) {
+		for(int i=9;i>-1;i--) {
 			if(novaPontuacao>top10Pontuacoes[i]) {
 				temp=top10Pontuacoes[i];
 				top10Pontuacoes[i]=novaPontuacao;
+				tempNome.replace(tempNome, top10Jogadores[i]);
+				top10Jogadores[i]=novoJogador;
+				tempModo.replace(tempModo, top10Jogadores[i]);
+				modoDoJogador[i]=novoModo;
+				
 				try {
-					top10Pontuacoes[i-1]=temp;
+					top10Pontuacoes[i+1]=temp;
+					top10Jogadores[i+1]=tempNome;
+					modoDoJogador[i+1]=tempModo;
 				}catch(Exception e){
 					
 				}
+			}else if(novaPontuacao<top10Pontuacoes[i]){
+				
+				break;
 			}
 		}
+		saveRanking();
+		
 	}
 	
 	
@@ -117,6 +141,30 @@ public class Ranking implements Serializable{
 	}
 	public void setTop10Jogadores(String [] top10Jogadores) {
 		this.top10Jogadores = top10Jogadores;
+	}
+
+	public String getNovoModo() {
+		return novoModo;
+	}
+
+	public void setNovoModo(String novoModo) {
+		this.novoModo = novoModo;
+	}
+
+	public String getNovoJogador() {
+		return novoJogador;
+	}
+
+	public void setNovoJogador(String novoJogador) {
+		this.novoJogador = novoJogador;
+	}
+
+	public String getTempModo() {
+		return tempModo;
+	}
+
+	public void setTempModo(String tempModo) {
+		this.tempModo = tempModo;
 	}
 	
 	

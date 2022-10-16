@@ -41,22 +41,7 @@ public class Menu implements ActionListener {
 	    frame.setVisible(true);
     }
     
-    public void pausa() {
-    	
-    	buttonPausa[0]= new JButton("Continuar");
-    	buttonPausa[0].setBounds(300, 200, 300, 100);
-    	buttonPausa[0].setFocusable(false);
-    	buttonPausa[0].addActionListener(this);
-    	frame.getContentPane().add(buttonPausa[0]);
-    			
-    	buttonPausa[1]=new JButton("Voltar ao menu Principal");
-    	buttonPausa[1].setBounds(300, 500, 300, 100);
-    	buttonPausa[1].setFocusable(false);
-    	buttonPausa[1].addActionListener(this);
-    	frame.getContentPane().add(buttonPausa[1]);
-    	
-    	
-    }
+    
     public void Return() {
     	
     	buttonReturn= new JButton("Retornar ao menu principal");
@@ -80,7 +65,7 @@ public class Menu implements ActionListener {
 	public void menuStart() {
 		label = new JLabel("Bem vindo a NPuzzle");
 		label.setVisible(true);
-		label.setBounds(200, 100, 200, 100);
+		label.setBounds(245, 100, 200, 100);
 		frame.getContentPane().add(label);
 		
 		buttonStart[0]= new JButton("Start");
@@ -202,13 +187,7 @@ public class Menu implements ActionListener {
        }
       
 		
-       if(e.getSource()==buttonPausa[0]) {
-    	   frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-    	   frame.setVisible(false);
-    	   
-       }else if(e.getSource()==buttonPausa[1]) {
-    	   jS.layout();
-       }
+      
        
        
 		if(e.getSource()==buttonDificuldade[0]) {
@@ -324,5 +303,7 @@ public class Menu implements ActionListener {
 	public void setR(Ranking r) {
 		this.r = r;
 	}
+
+
 
 }

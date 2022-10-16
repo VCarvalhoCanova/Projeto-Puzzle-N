@@ -16,6 +16,7 @@ public class UsuarioInfo implements Serializable{
 	private int dificuldade;
 	private int contadorDePassos;
 	private int [][]tabuleiro;
+	private int [][] matrizResposta;
 	 
 	
 	
@@ -78,6 +79,16 @@ public class UsuarioInfo implements Serializable{
 
 	public void setElapsedTime(int elapsedTime) {
 		this.elapsedTime = elapsedTime;
+	}
+
+
+
+	public int [][] getMatrizResposta() {
+		return matrizResposta;
+	}
+
+	public void setMatrizResposta(int [][] matrizResposta) {
+		this.matrizResposta = matrizResposta;
 	}
 	
 }
